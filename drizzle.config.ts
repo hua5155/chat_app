@@ -1,7 +1,10 @@
-import type { Config } from 'drizzle-kit';
-export default {
-	dialect: 'postgresql',
-	out: './drizzle/migrations/', // migration file output.
+import { defineConfig } from 'drizzle-kit';
+
+export default defineConfig({
 	schema: './drizzle/schema.ts', // schema folder.
-	breakpoints: false // true for MySQL or SQLite.
-} satisfies Config;
+	out: './drizzle/migrations/', // migration file output.
+	dialect: 'postgresql',
+	dbCredentials: {
+		url: process.env.POSTGRES_URL ?? ''
+	}
+});
