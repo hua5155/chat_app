@@ -1,37 +1,39 @@
 <script lang="ts">
+	import Window from '$lib/component/Window.svelte';
+
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
+	import type { SelectChatSchema } from '$drizzle/schema';
 
 	function getRandomNumber(min: number, max: number) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
 
 	export let data: PageData;
-	let timeline = data.messages;
-	let form: HTMLFormElement;
+	$: timeline = data.messages;
 	let username = `username${getRandomNumber(0, 9999)}`;
 	let reply = '';
 	let history: string[] = [''];
 	let index = 0;
+
+	// onMount(async () => {
+	// 	const response = await fetch('/api/update-message');
+	// 	const body = await response.json();
+
+	// 	console.log(body);
+	// });
 </script>
 
-<main class="h-screen w-screen overflow-hidden bg-[#008080] p-20 font-mono text-black">
-	<div
-		class="w-1/3 border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
-	>
-		<div class="flex w-full flex-row gap-2 bg-[#00007f] p-1 font-bold">
-			<p class="prose grow px-2 text-white">Chat</p>
-			<button class="h-7 w-7 text-center align-middle">-</button>
-			<button class="h-7 w-7 text-center align-middle">+</button>
-			<button class="h-7 w-7 text-center align-middle">x</button>
+<main class="relative h-screen w-screen overflow-hidden bg-[#008080] font-mono text-black">
+	<Window windowName="Chat" positonX={200} positonY={100}>
+		<div class="w-full py-1">
+			<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
 		</div>
-		<div class="w-full pt-1"></div>
-		<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
-		<div class="w-full pb-1"></div>
 		<ul
 			class="prose-xl h-96 w-full max-w-none overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-white"
 		>
-			{#each timeline as message}
+			{#each timeline as message (message.id)}
 				<li class="m-0 flex flex-row text-pretty leading-7">
 					<p class="m-0 grow pl-8 -indent-8">
 						<span class="text-[#0000ff]">{`<${message.username}> `}</span>
@@ -48,7 +50,7 @@
 			class="flex w-full flex-row gap-2"
 			action="?/postMessage"
 			method="post"
-			bind:this={form}
+			autocomplete="off"
 			use:enhance={({ formData, cancel }) => {
 				if (username === '') {
 					console.log('Empty username');
@@ -59,20 +61,11 @@
 					cancel();
 				}
 
-				const timestamp = new Date();
-				const message = {
-					username: username,
-					message: reply,
-					timestamp: timestamp
-				};
-
-				timeline = [...timeline, message];
 				history.splice(1, 0, reply);
 				index = 0;
 				reply = '';
 
-				formData.append('username', message.username);
-				formData.append('timestamp', timestamp.toString());
+				formData.append('username', username);
 				console.log(formData);
 				// cancel();
 			}}
@@ -104,9 +97,9 @@
 					}
 				}}
 			/>
-			<button class="prose-xl px-2" type="submit">Send</button>
+			<button class="prose-xl select-none px-2" type="submit">Send</button>
 		</form>
-	</div>
+	</Window>
 </main>
 
 <style>

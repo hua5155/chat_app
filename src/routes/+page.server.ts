@@ -6,14 +6,7 @@ import { nanoid } from 'nanoid';
 
 const drizzle = getDrizzleClient();
 export const load: PageServerLoad = async () => {
-	const messages = await drizzle
-		.select({
-			username: chat.username,
-			message: chat.message,
-			timestamp: chat.timestamp
-		})
-		.from(chat)
-		.limit(50);
+	const messages = await drizzle.select().from(chat).limit(50);
 
 	return { messages: messages };
 };
@@ -32,13 +25,17 @@ export const actions: Actions = {
 
 		if (zParsed.success) {
 			const { username, message } = zParsed.data;
+			const ISOTime = new Date().toISOString();
+			console.log(ISOTime);
 
 			await drizzle.insert(chat).values({
 				id: nanoid(),
 				username: username,
 				message: message,
-				timestamp: new Date()
+				timestamp: new Date(ISOTime)
 			});
+		} else {
+			console.log(zParsed.error);
 		}
 	}
 };
