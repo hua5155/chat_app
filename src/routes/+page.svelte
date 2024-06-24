@@ -91,6 +91,7 @@
 				class="prose-xl grow border-2 border-b-white border-l-black border-r-white border-t-black px-2 focus:outline-none"
 				type="text"
 				name="message"
+				autofocus={true}
 				bind:value={reply}
 				on:keydown={({ key }) => {
 					// console.log(key);
