@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Window from '$lib/component/Window.svelte';
+	import Chat from './Chat.svelte';
 	import CLI from './CLI.svelte';
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
@@ -8,12 +8,6 @@
 
 	function getRandomNumber(min: number, max: number) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
-	}
-
-	function scrollToBottom(element: HTMLElement) {
-		element.scroll({
-			top: element.scrollHeight
-		});
 	}
 
 	export let data: PageData;
@@ -33,29 +27,21 @@
 </script>
 
 <main class="relative h-screen w-screen overflow-hidden bg-[#008080] font-mono text-black">
-	<Window windowName="Chat" positonX={200} positonY={100}>
-		<div class="w-full py-1">
-			<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
-		</div>
-		<div
-			class="prose-xl h-96 w-full max-w-none overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-white"
-			use:scrollToBottom
-		>
-			{#each timeline as message (message.id)}
-				<div class="m-0 flex flex-row text-pretty leading-7 [overflow-anchor:none]">
-					<p class="m-0 grow pl-9 -indent-8">
-						<span class="text-[#0000ff]">{`<${message.username}> `}</span>
-						{message.message}
-					</p>
-					<p class="m-0 shrink-0 pl-4 pr-2 text-[#7f787f]">
-						{message.timestamp.toLocaleTimeString()}
-					</p>
-				</div>
-			{/each}
-			<div class="h-[1px] [overflow-anchor:auto]"></div>
-		</div>
-		<div class="w-full pt-1"></div>
+	<Chat>
+		{#each timeline as message (message.id)}
+			<div class="m-0 flex flex-row text-pretty leading-7 [overflow-anchor:none]">
+				<p class="m-0 grow pl-9 -indent-8">
+					<span class="text-[#0000ff]">{`<${message.username}> `}</span>
+					{message.message}
+				</p>
+				<p class="m-0 shrink-0 pl-4 pr-2 text-[#7f787f]">
+					{message.timestamp.toLocaleTimeString()}
+				</p>
+			</div>
+		{/each}
+
 		<form
+			slot="message"
 			class="flex w-full flex-row gap-2"
 			action="?/sendMessage"
 			method="post"
@@ -113,7 +99,7 @@
 			/>
 			<button class="prose-xl select-none px-2" type="submit">Send</button>
 		</form>
-	</Window>
+	</Chat>
 	<CLI></CLI>
 </main>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Window from '$lib/component/Window.svelte';
 	import { username } from './store';
+	import { scrollToBottom } from '$lib/ui/util';
 
 	function writeLine(text: string, classes: string[]) {
 		const parrent = document.getElementById('command-line');
@@ -90,6 +91,7 @@
 					}
 					if (key === 'Enter') {
 						handleEnter();
+						scrollToBottom(document.getElementById('command-line'));
 					}
 				}}
 			/>
