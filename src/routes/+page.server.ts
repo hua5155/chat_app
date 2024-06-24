@@ -18,6 +18,8 @@ export const load: PageServerLoad = async () => {
 		.from(lastFiftyRows)
 		.orderBy(asc(lastFiftyRows.timestamp));
 
+	// console.log(ascendingOrdered);
+
 	return { messages: ascendingOrdered };
 };
 
@@ -35,14 +37,13 @@ export const actions: Actions = {
 
 		if (zParsed.success) {
 			const { username, message } = zParsed.data;
-			const ISOTime = new Date().toISOString();
-			console.log(ISOTime);
+			// const ISOTime = new Date().toISOString();
+			// console.log(ISOTime);
 
 			await drizzle.insert(chat).values({
 				id: nanoid(),
 				username: username,
-				message: message,
-				timestamp: new Date(ISOTime)
+				message: message
 			});
 		} else {
 			console.log(zParsed.error);

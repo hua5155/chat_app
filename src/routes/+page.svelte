@@ -32,6 +32,8 @@
 
 	// 	console.log(body);
 	// });
+
+	// console.log(data.messages);
 </script>
 
 <main class="relative h-screen w-screen overflow-hidden bg-[#008080] font-mono text-black">
