@@ -1,18 +1,28 @@
 import type { Actions, PageServerLoad } from './$types';
 import { getDrizzleClient } from '$lib/server/drizzle';
+import { asc, desc } from 'drizzle-orm';
 import { chat } from '$drizzle/schema';
 import { z } from 'zod';
 import { nanoid } from 'nanoid';
 
 const drizzle = getDrizzleClient();
 export const load: PageServerLoad = async () => {
-	const messages = await drizzle.select().from(chat).limit(50);
+	const lastFiftyRows = drizzle
+		.select()
+		.from(chat)
+		.orderBy(desc(chat.timestamp))
+		.limit(50)
+		.as('subquery');
+	const ascendingOrdered = await drizzle
+		.select()
+		.from(lastFiftyRows)
+		.orderBy(asc(lastFiftyRows.timestamp));
 
-	return { messages: messages };
+	return { messages: ascendingOrdered };
 };
 
 export const actions: Actions = {
-	postMessage: async ({ request }) => {
+	sendMessage: async ({ request }) => {
 		const formData = Object.fromEntries(await request.formData());
 		console.log(formData);
 

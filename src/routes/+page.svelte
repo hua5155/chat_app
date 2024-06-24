@@ -2,12 +2,19 @@
 	import Window from '$lib/component/Window.svelte';
 
 	import type { PageData } from './$types';
+	import type { SelectChatSchema } from '$drizzle/schema';
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
-	import type { SelectChatSchema } from '$drizzle/schema';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
 	function getRandomNumber(min: number, max: number) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
+	}
+
+	function scrollToBottom(element: HTMLElement) {
+		element.scroll({
+			top: element.scrollHeight
+		});
 	}
 
 	export let data: PageData;
@@ -16,6 +23,8 @@
 	let reply = '';
 	let history: string[] = [''];
 	let index = 0;
+
+	let bottom = true;
 
 	// onMount(async () => {
 	// 	const response = await fetch('/api/update-message');
@@ -30,11 +39,12 @@
 		<div class="w-full py-1">
 			<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
 		</div>
-		<ul
+		<div
 			class="prose-xl h-96 w-full max-w-none overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-white"
+			use:scrollToBottom
 		>
 			{#each timeline as message (message.id)}
-				<li class="m-0 flex flex-row text-pretty leading-7">
+				<div class="m-0 flex flex-row text-pretty leading-7 [overflow-anchor:none]">
 					<p class="m-0 grow pl-8 -indent-8">
 						<span class="text-[#0000ff]">{`<${message.username}> `}</span>
 						{message.message}
@@ -42,13 +52,14 @@
 					<p class="m-0 shrink-0 pl-4 pr-2 text-[#7f787f]">
 						{message.timestamp.toLocaleTimeString()}
 					</p>
-				</li>
+				</div>
 			{/each}
-		</ul>
+			<div class="h-[1px] [overflow-anchor:auto]"></div>
+		</div>
 		<div class="w-full pt-1"></div>
 		<form
 			class="flex w-full flex-row gap-2"
-			action="?/postMessage"
+			action="?/sendMessage"
 			method="post"
 			autocomplete="off"
 			use:enhance={({ formData, cancel }) => {
@@ -66,8 +77,12 @@
 				reply = '';
 
 				formData.append('username', username);
-				console.log(formData);
+				// console.log(formData);
 				// cancel();
+
+				// return async ({ result, update }) => {
+				// 	update();
+				// };
 			}}
 		>
 			<input
