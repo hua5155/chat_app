@@ -1,11 +1,10 @@
 <script lang="ts">
 	import Window from '$lib/component/Window.svelte';
-
+	import CLI from './CLI.svelte';
 	import type { PageData } from './$types';
-	import type { SelectChatSchema } from '$drizzle/schema';
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { username } from './store';
 
 	function getRandomNumber(min: number, max: number) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
@@ -18,22 +17,19 @@
 	}
 
 	export let data: PageData;
+	// console.log(data.messages);
 	$: timeline = data.messages;
-	let username = `username${getRandomNumber(0, 9999)}`;
 	let reply = '';
 	let history: string[] = [''];
 	let index = 0;
 
-	let bottom = true;
+	onMount(async () => {
+		$username = `User${getRandomNumber(0, 9999)}`;
 
-	// onMount(async () => {
-	// 	const response = await fetch('/api/update-message');
-	// 	const body = await response.json();
-
-	// 	console.log(body);
-	// });
-
-	// console.log(data.messages);
+		// const response = await fetch('/api/update-message');
+		// const body = await response.json();
+		// console.log(body);
+	});
 </script>
 
 <main class="relative h-screen w-screen overflow-hidden bg-[#008080] font-mono text-black">
@@ -47,7 +43,7 @@
 		>
 			{#each timeline as message (message.id)}
 				<div class="m-0 flex flex-row text-pretty leading-7 [overflow-anchor:none]">
-					<p class="m-0 grow pl-8 -indent-8">
+					<p class="m-0 grow pl-9 -indent-8">
 						<span class="text-[#0000ff]">{`<${message.username}> `}</span>
 						{message.message}
 					</p>
@@ -65,7 +61,7 @@
 			method="post"
 			autocomplete="off"
 			use:enhance={({ formData, cancel }) => {
-				if (username === '') {
+				if ($username === '') {
 					console.log('Empty username');
 					cancel();
 				}
@@ -78,7 +74,7 @@
 				index = 0;
 				reply = '';
 
-				formData.append('username', username);
+				formData.append('username', $username);
 				// console.log(formData);
 				// cancel();
 
@@ -118,6 +114,7 @@
 			<button class="prose-xl select-none px-2" type="submit">Send</button>
 		</form>
 	</Window>
+	<CLI></CLI>
 </main>
 
 <style>

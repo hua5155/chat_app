@@ -12,6 +12,8 @@
 
 <section
 	class="absolute left-[--x-position] top-[--y-position] h-fit w-[700px] border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
+	class:z-0={!focused}
+	class:z-10={focused}
 	style:--x-position="{positonX}px"
 	style:--y-position="{positonY}px"
 	tabindex="-1"
