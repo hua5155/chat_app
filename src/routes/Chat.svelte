@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Window from '$lib/component/Window.svelte';
-	import { scrollToBottom } from '$lib/ui/util';
+	import { scrollToBottom } from '$lib/util/ui';
 </script>
 
 <Window windowName="Chat" positonX={200} positonY={100}>
