@@ -65,7 +65,7 @@
 		<div class="inline-flex w-full [overflow-anchor:none]" id="current-line">
 			<span class="w-fit pr-[1ch]">{`${PATH}${$username}>`}</span>
 			<input
-				class="h-fit w-[40ch] bg-black focus:outline-none"
+				class="h-fit w-[35ch] bg-black focus:outline-none"
 				type="text"
 				id="user-input"
 				bind:value={userInput}

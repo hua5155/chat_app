@@ -26,7 +26,9 @@
 	});
 </script>
 
-<main class="relative h-screen w-screen overflow-hidden bg-[#008080] font-mono text-black">
+<main
+	class="relative h-screen w-screen overflow-hidden bg-[#008080] font-['Source_Code_Pro','Noto_Sans_TC'] text-black"
+>
 	<Chat>
 		{#each timeline as message (message.id)}
 			<div class="m-0 flex flex-row text-pretty leading-7 [overflow-anchor:none]">
