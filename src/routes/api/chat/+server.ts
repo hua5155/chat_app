@@ -7,15 +7,21 @@ import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { dev } from '$app/environment';
 
+export const config = { runtime: 'edge' };
+
 const buffer = writable<SelectChatSchema[]>([]);
 const drizzle = getDrizzleClient();
 
-export const GET: RequestHandler = async ({}) => {
+export const GET: RequestHandler = async ({ request }) => {
 	if (dev) console.log(`GET request /api/chat`);
 
+	const encoder = new TextEncoder();
 	const readableStream = new ReadableStream({
+		start(controller) {
+			controller.enqueue(encoder.encode('event: subscribe\ndata: you have subscribe to chat!\n\n'));
+		},
 		async pull(controller) {
-			await new Promise((resolve) => {
+			await new Promise((resolve, reject) => {
 				const unsubscribe = buffer.subscribe((messages) => {
 					if (messages.length > 0) {
 						unsubscribe();
@@ -24,7 +30,7 @@ export const GET: RequestHandler = async ({}) => {
 				});
 			}).then((message) => {
 				if (dev) console.log(`enqueue message: ${JSON.stringify(message)}`);
-				controller.enqueue(`data: ${JSON.stringify(message)}\n\n`);
+				controller.enqueue(encoder.encode(`event: update\ndata: ${JSON.stringify(message)}\n\n`));
 				buffer.update(() => []);
 			});
 		}

@@ -41,14 +41,17 @@
 
 	onMount(() => {
 		const eventSource = new EventSource('/api/chat');
-		eventSource.onmessage = (event) => {
+		eventSource.addEventListener('subscribe', (event) => {
+			console.log(event.data);
+		});
+		eventSource.addEventListener('update', (event) => {
 			const eventData = JSON.parse(event.data) as ChatSSE[];
 			const newMessages = eventData.map((value) => {
 				const { timestamp, ...rest } = value;
 				return { ...rest, timestamp: new Date(timestamp) };
 			});
 			chat = [...chat, ...newMessages];
-		};
+		});
 
 		return () => {
 			eventSource.close();
