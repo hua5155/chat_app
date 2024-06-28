@@ -11,3 +11,6 @@ export const chat = pgTable('Chat', {
 
 const selectChatSchema = createSelectSchema(chat);
 export type SelectChatSchema = z.infer<typeof selectChatSchema>;
+
+const chatSSE = selectChatSchema.extend({ timestamp: z.string() });
+export type ChatSSE = z.infer<typeof chatSSE>;
