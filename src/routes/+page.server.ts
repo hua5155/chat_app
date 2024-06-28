@@ -1,4 +1,5 @@
 import type { Actions, PageServerLoad } from './$types';
+import { dev } from '$app/environment';
 import { getDrizzleClient } from '$lib/server/drizzle';
 import { asc, desc } from 'drizzle-orm';
 import { chat } from '$drizzle/schema';
@@ -18,7 +19,7 @@ export const load: PageServerLoad = async () => {
 		.from(lastFiftyRows)
 		.orderBy(asc(lastFiftyRows.timestamp));
 
-	// console.log(ascendingOrdered);
+	// if (dev) console.log(ascendingOrdered);
 
 	return { messages: ascendingOrdered };
 };
@@ -26,7 +27,7 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	sendMessage: async ({ request }) => {
 		const formData = Object.fromEntries(await request.formData());
-		console.log(formData);
+		if (dev) console.log(formData);
 
 		const zParsed = z
 			.object({
@@ -38,7 +39,7 @@ export const actions: Actions = {
 		if (zParsed.success) {
 			const { username, message } = zParsed.data;
 			// const ISOTime = new Date().toISOString();
-			// console.log(ISOTime);
+			// if (dev) console.log(ISOTime);
 
 			await drizzle.insert(chat).values({
 				id: nanoid(),
@@ -46,7 +47,7 @@ export const actions: Actions = {
 				message: message
 			});
 		} else {
-			console.log(zParsed.error);
+			if (dev) console.log(zParsed.error);
 		}
 	}
 };

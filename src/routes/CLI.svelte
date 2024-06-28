@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Window from '$lib/component/Window.svelte';
+	import { dev } from '$app/environment';
 	import { username } from './store';
 	import { scrollToBottom } from '$lib/util/ui';
 
@@ -70,7 +71,7 @@
 				id="user-input"
 				bind:value={userInput}
 				on:keydown={({ key }) => {
-					// console.log(key);
+					if (dev) console.log(key);
 
 					if (key === 'ArrowUp') {
 						index += 1;

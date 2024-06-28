@@ -47,7 +47,6 @@
 				const { timestamp, ...rest } = value;
 				return { ...rest, timestamp: new Date(timestamp) };
 			});
-			console.log(`new messages: `, newMessages);
 			chat = [...chat, ...newMessages];
 		};
 
