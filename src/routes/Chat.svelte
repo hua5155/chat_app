@@ -3,35 +3,9 @@
 	import type { SelectChatSchema, ChatSSE } from '$drizzle/schema';
 	import { dev } from '$app/environment';
 	import { onMount } from 'svelte';
+	import { enhance } from '$app/forms';
 	import { scrollToBottom } from '$lib/util/ui';
 	import { username } from './store';
-
-	async function handleEnter() {
-		if ($username === '') {
-			if (dev) console.log('Empty username');
-			return;
-		}
-		if (reply === '') {
-			if (dev) console.log('Empty message');
-			return;
-		}
-
-		if (dev) console.log('POST /api/chat');
-		await fetch('/api/chat', {
-			method: 'POST',
-			body: JSON.stringify({
-				username: $username,
-				message: reply
-			}),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-
-		history.splice(1, 0, reply);
-		index = 0;
-		reply = '';
-	}
 
 	export let chat: SelectChatSchema[];
 
@@ -81,11 +55,39 @@
 		<div class="h-[1px] [overflow-anchor:auto]"></div>
 	</div>
 	<div class="w-full pt-1"></div>
-	<div class="flex w-full flex-row gap-2">
+	<form
+		class="flex w-full flex-row gap-2"
+		action="?/sendMessage"
+		method="post"
+		autocomplete="off"
+		use:enhance={({ formData, cancel }) => {
+			if ($username === '') {
+				console.log('Empty username');
+				cancel();
+			}
+			if (reply === '') {
+				console.log('Empty message');
+				cancel();
+			}
+
+			history.splice(1, 0, reply);
+			index = 0;
+			reply = '';
+
+			formData.append('username', $username);
+			// if (dev) console.log(formData);
+			// cancel();
+
+			// return async ({ result, update }) => {
+			// 	if (dev) console.log(document.activeElement);
+			// 	update();
+			// };
+		}}
+	>
 		<input
 			class="prose-xl grow border-2 border-b-white border-l-black border-r-white border-t-black px-2 focus:outline-none"
 			type="text"
-			autocomplete="off"
+			name="message"
 			autofocus={true}
 			bind:value={reply}
 			on:keydown={({ key }) => {
@@ -108,20 +110,10 @@
 				if (key === 'Escape') {
 					reply = '';
 				}
-				if (key === 'Enter') {
-					handleEnter();
-				}
 			}}
 		/>
-		<button
-			class="prose-xl select-none px-2"
-			on:click={() => {
-				handleEnter();
-			}}
-		>
-			Send
-		</button>
-	</div>
+		<button class="prose-xl select-none px-2" type="submit">Send</button>
+	</form>
 </Window>
 
 <style>

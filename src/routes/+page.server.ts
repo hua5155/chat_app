@@ -5,6 +5,7 @@ import { asc, desc } from 'drizzle-orm';
 import { chat } from '$drizzle/schema';
 import { z } from 'zod';
 import { nanoid } from 'nanoid';
+import { buffer } from '$lib/server/store';
 
 const drizzle = getDrizzleClient();
 export const load: PageServerLoad = async () => {
@@ -26,8 +27,10 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	sendMessage: async ({ request }) => {
+		if (dev) console.log('?/sendMessage');
+
 		const formData = Object.fromEntries(await request.formData());
-		if (dev) console.log(formData);
+		// if (dev) console.log(formData);
 
 		const zParsed = z
 			.object({
@@ -41,10 +44,18 @@ export const actions: Actions = {
 			// const ISOTime = new Date().toISOString();
 			// if (dev) console.log(ISOTime);
 
-			await drizzle.insert(chat).values({
-				id: nanoid(),
-				username: username,
-				message: message
+			const row = await drizzle
+				.insert(chat)
+				.values({
+					id: nanoid(),
+					username: username,
+					message: message
+				})
+				.returning();
+
+			buffer.update((value) => {
+				if (dev) console.log(row);
+				return [...value, ...row];
 			});
 		} else {
 			if (dev) console.log(zParsed.error);
