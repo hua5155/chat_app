@@ -15,10 +15,14 @@
 
 	onMount(() => {
 		const eventSource = new EventSource('/api/chat');
-		eventSource.addEventListener('subscribe', (event) => {
+		eventSource.onerror = (err) => {
+			console.log(err);
+		};
+		eventSource.addEventListener('start', (event) => {
 			console.log(event.data);
 		});
-		eventSource.addEventListener('update', (event) => {
+		eventSource.addEventListener('pull', (event) => {
+			console.log(event.data);
 			const eventData = JSON.parse(event.data) as ChatSSE[];
 			const newMessages = eventData.map((value) => {
 				const { timestamp, ...rest } = value;
@@ -28,6 +32,7 @@
 		});
 
 		return () => {
+			console.log('closing connection');
 			eventSource.close();
 		};
 	});
@@ -78,10 +83,10 @@
 			// if (dev) console.log(formData);
 			// cancel();
 
-			// return async ({ result, update }) => {
-			// 	if (dev) console.log(document.activeElement);
-			// 	update();
-			// };
+			return async ({ result, update }) => {
+				// if (dev) console.log(document.activeElement);
+				// update();
+			};
 		}}
 	>
 		<input
