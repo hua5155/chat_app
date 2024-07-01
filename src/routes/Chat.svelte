@@ -15,6 +15,12 @@
 
 	onMount(() => {
 		const eventSource = new EventSource('/api/chat');
+		eventSource.onmessage = (event) => {
+			console.log(event.data);
+		};
+		eventSource.onerror = (err) => {
+			console.log(err);
+		};
 		eventSource.addEventListener('subscribe', (event) => {
 			console.log(event.data);
 		});
@@ -28,6 +34,7 @@
 		});
 
 		return () => {
+			console.log('closing connection');
 			eventSource.close();
 		};
 	});

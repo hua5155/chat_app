@@ -10,9 +10,11 @@ export const GET: RequestHandler = async ({ request }) => {
 	const encoder = new TextEncoder();
 	const readableStream = new ReadableStream({
 		start(controller) {
+			console.log('initial response');
 			controller.enqueue(encoder.encode('event: subscribe\ndata: you have subscribe to chat!\n\n'));
 		},
 		async pull(controller) {
+			console.log('waiting for buffer');
 			await new Promise((resolve, reject) => {
 				const unsubscribe = buffer.subscribe((messages) => {
 					if (messages.length > 0) {
@@ -20,11 +22,19 @@ export const GET: RequestHandler = async ({ request }) => {
 						resolve(messages);
 					}
 				});
-			}).then((message) => {
-				if (dev) console.log(`enqueue message: ${JSON.stringify(message)}`);
-				controller.enqueue(encoder.encode(`event: update\ndata: ${JSON.stringify(message)}\n\n`));
-				buffer.update(() => []);
-			});
+			})
+				.then((message) => {
+					console.log('enqueue message');
+					if (dev) console.log(`enqueue message: ${JSON.stringify(message)}`);
+					controller.enqueue(encoder.encode(`event: update\ndata: ${JSON.stringify(message)}\n\n`));
+					buffer.update(() => []);
+				})
+				.catch((err) => {
+					console.log('error', err);
+				});
+		},
+		cancel() {
+			console.log('cancel');
 		}
 	});
 
