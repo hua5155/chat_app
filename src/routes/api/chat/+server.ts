@@ -38,8 +38,8 @@ export const GET: RequestHandler = async ({ request }) => {
 			});
 
 			console.log('checking for update');
-			console.log(`lastId: ${lastId}`);
-			console.log(`lastTimestamp: ${lastTimestamp}`);
+			if (dev) console.log(`lastId: ${lastId}`);
+			if (dev) console.log(`lastTimestamp: ${lastTimestamp}`);
 
 			try {
 				const newRows = await drizzle
@@ -52,10 +52,10 @@ export const GET: RequestHandler = async ({ request }) => {
 					)
 					.orderBy(asc(chat.timestamp));
 
-				console.log('newRows:');
-				console.log(newRows);
-
 				if (newRows.length !== 0) {
+					console.log('newRows');
+					if (dev) console.log(newRows);
+
 					lastId = newRows[newRows.length - 1].id;
 					lastTimestamp = newRows[newRows.length - 1].timestamp;
 				}

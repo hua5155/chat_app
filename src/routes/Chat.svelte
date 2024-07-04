@@ -22,7 +22,8 @@
 			console.log(event.data);
 		});
 		eventSource.addEventListener('pull', (event) => {
-			console.log(event.data);
+			console.log('pull event');
+			if (dev) console.log(event.data);
 			const eventData = JSON.parse(event.data) as ChatSSE[];
 			const newMessages = eventData.map((value) => {
 				const { timestamp, ...rest } = value;
