@@ -39,7 +39,7 @@
 	});
 </script>
 
-<Window windowName="Chat" positonX={200} positonY={100}>
+<Window windowName="Chat" widthWithUnit="80ch" positonX={200} positonY={100}>
 	<div class="w-full py-1">
 		<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
 	</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let windowName: string;
+	export let widthWithUnit: string;
 	export let positonX: number;
 	export let positonY: number;
 
@@ -11,11 +12,12 @@
 </script>
 
 <section
-	class="absolute left-[--x-position] top-[--y-position] h-fit w-[700px] border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
+	class="absolute left-[--x-position] top-[--y-position] h-fit w-[--width] border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
 	class:z-0={!focused}
 	class:z-10={focused}
 	style:--x-position="{positonX}px"
 	style:--y-position="{positonY}px"
+	style:--width={widthWithUnit}
 	tabindex="-1"
 	on:focusin={() => {
 		focused = true;
@@ -25,7 +27,7 @@
 	}}
 >
 	<div
-		class="flex w-full select-none flex-row gap-2 bg-gradient-to-r p-1 font-bold"
+		class="flex w-full select-none flex-row justify-center gap-2 bg-gradient-to-r p-1 pl-2 font-bold"
 		class:from-[#6b656b]={!focused}
 		class:to-[#7f787f]={!focused}
 		class:from-[#00007f]={focused}
@@ -37,7 +39,7 @@
 			referenceY = screenY;
 		}}
 	>
-		<p class="prose grow px-2 text-white">{windowName}</p>
+		<p class="prose max-w-none grow text-white">{windowName}</p>
 		<button class="h-7 w-7 text-center align-middle">-</button>
 		<button class="h-7 w-7 text-center align-middle">+</button>
 		<button class="h-7 w-7 text-center align-middle">x</button>
