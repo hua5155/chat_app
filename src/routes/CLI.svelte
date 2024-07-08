@@ -80,12 +80,9 @@
 	let index = 0;
 </script>
 
-<Window windowName="Command Line" widthWithUnit="75ch" positonX={600} positonY={130}>
-	<div class="w-full py-1">
-		<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
-	</div>
+<Window windowName="Command Line" widthWithUnit="75ch" positonX={290} positonY={210}>
 	<div
-		class="prose-xl h-[400px] w-full max-w-none overflow-x-hidden overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-black pl-2 text-[#7f787f] *:whitespace-pre *:text-wrap *:[overflow-anchor:none]"
+		class="prose-xl h-[400px] w-full overflow-x-hidden overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-black pl-2 text-[#7f787f] *:whitespace-pre *:text-wrap *:[overflow-anchor:none]"
 		id="command-line"
 		role="none"
 		on:click={() => {

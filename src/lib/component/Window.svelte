@@ -44,6 +44,9 @@
 		<button class="h-7 w-7 text-center align-middle">+</button>
 		<button class="h-7 w-7 text-center align-middle">x</button>
 	</div>
+	<div class="w-full py-1">
+		<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
+	</div>
 	<slot></slot>
 </section>
 

@@ -40,9 +40,6 @@
 </script>
 
 <Window windowName="Chat" widthWithUnit="80ch" positonX={200} positonY={100}>
-	<div class="w-full py-1">
-		<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
-	</div>
 	<div
 		class="prose-xl h-96 w-full max-w-none overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-white"
 		use:scrollToBottom
