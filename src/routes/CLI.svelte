@@ -20,8 +20,12 @@
 		parrent?.insertBefore(newLine, child);
 	}
 
-	function parseCommand(command: string) {
-		if (command.startsWith('/help')) {
+	function parseCommand(input: string) {
+		const command = input.split(' ')[0];
+
+		if (dev) console.log(`${input}`);
+
+		if (command === '/help') {
 			for (let index = 0; index < COMMANDS.length; index++) {
 				const command = COMMANDS[index];
 				if (command.startsWith('/help')) {
@@ -29,25 +33,33 @@
 				}
 				writeGrayLine(command);
 			}
-		} else if (command.startsWith('/about')) {
-			writeGrayLine(`Just a chat app so I get to use DB and ORM.`);
+		} else if (command === '/about') {
+			writeGrayLine(
+				"Just a Windows 95 styled messaging app so I get to practice backend related things(API, DB, ORM), and doing some frontend that's not copying some other website."
+			);
 			writeGrayLine(' ');
 			writeGrayLine(
 				'The app is built by SvelteKit, TailwindCSS, Drizzle ORM using Vercel Postgres and hosted on vercel.'
 			);
 			writeGrayLine(' ');
 			writeGrayLine(
-				'Chat is updated via polling DB from server side and sent to client using SSE.'
+				'Chat is updated by polling DB with filtering query based on last known row from server side and sent to client via SSE.'
 			);
-		} else if (command.startsWith('/nickname')) {
-			const newName = command.split(' ')[1];
-			if (newName !== undefined) {
-				$username = newName;
-			} else {
-				writeGrayLine(`Invalid arugment, expected name but got empty string.`);
+			writeGrayLine(
+				"This is a very rough workaround that I can't share data between API request(and probably shouldn't), I might tryout Supabase later."
+			);
+		} else if (command === '/nickname') {
+			const start = input.indexOf('"') + 1;
+			const end = input.indexOf('"', start);
+			const newName = input.substring(start, end);
+
+			if (newName === '') {
+				writeGrayLine('Invalid argument, expect "my name" but got none.');
+				return;
 			}
+			$username = newName;
 		} else {
-			writeGrayLine(`Error parsing ${command}.`);
+			writeGrayLine(`Error parsing ${input}.`);
 			writeGrayLine('Type /help to see list of avaliable command.');
 		}
 	}
@@ -70,10 +82,9 @@
 	const PATH = 'C:/User/' as const;
 	const COMMANDS = [
 		'/about to know more about the app.',
-		'/nickname jeff to change your name in the chat.',
+		'/nickname "your name" to change your name in the chat.',
 		'/help to see list of avaliable command.'
 	] as const;
-	const offset = PATH.length + $username.length;
 
 	let userInput = '';
 	let history: string[] = [''];
@@ -90,7 +101,7 @@
 		}}
 	>
 		{#each LOGO as line}
-			<div class="leading-7">{line}</div>
+			<div class="text-base leading-snug">{line}</div>
 		{/each}
 
 		{#each COMMANDS as command}
