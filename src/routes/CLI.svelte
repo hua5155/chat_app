@@ -148,12 +148,9 @@
 				}}
 			/>
 		</div>
-		<div class="h-[1px] [overflow-anchor:auto_!important]"></div>
+		<div class="h-[1px] ![overflow-anchor:auto]"></div>
 	</div>
 </Window>
 
 <style>
-	button {
-		@apply border-2 border-b-black border-l-white border-r-black border-t-white bg-[#bfb8bf];
-	}
 </style>

@@ -66,7 +66,4 @@
 />
 
 <style>
-	button {
-		@apply border-2 border-b-black border-l-white border-r-black border-t-white bg-[#bfb8bf];
-	}
 </style>

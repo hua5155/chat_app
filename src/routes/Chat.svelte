@@ -13,6 +13,8 @@
 	let history: string[] = [''];
 	let index = 0;
 
+	let buttonFlag = false;
+
 	onMount(() => {
 		const eventSource = new EventSource('/api/chat');
 		eventSource.onerror = (err) => {
@@ -22,8 +24,8 @@
 			console.log(event.data);
 		});
 		eventSource.addEventListener('pull', (event) => {
-			console.log('pull event');
-			if (dev) console.log(event.data);
+			// console.log('pull event');
+			// if (dev) console.log(event.data);
 			const eventData = JSON.parse(event.data) as ChatSSE[];
 			const newMessages = eventData.map((value) => {
 				const { timestamp, ...rest } = value;
@@ -115,12 +117,25 @@
 				}
 			}}
 		/>
-		<button class="prose-xl select-none px-2" type="submit">Send</button>
+		<button
+			class="prose-xl select-none px-2"
+			class:border-b-white={buttonFlag}
+			class:border-l-black={buttonFlag}
+			class:border-r-white={buttonFlag}
+			class:border-t-black={buttonFlag}
+			class:bg-[#b3aab3]={buttonFlag}
+			type="submit"
+			on:mousedown={() => {
+				buttonFlag = true;
+			}}
+			on:mouseup={() => {
+				buttonFlag = false;
+			}}
+		>
+			Send
+		</button>
 	</form>
 </Window>
 
 <style>
-	button {
-		@apply border-2 border-b-black border-l-white border-r-black border-t-white bg-[#bfb8bf];
-	}
 </style>
