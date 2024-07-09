@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Window from '$lib/component/Window.svelte';
 	import { dev } from '$app/environment';
-	import { username } from './store';
+	import { cliSetting, taskbar, username, zStack } from './store';
 	import { scrollToBottom } from '$lib/util/ui';
 
 	function writeGrayLine(text: string) {
@@ -78,7 +78,6 @@
 		'\\____/_/ /_/\\__,_/\\__/   \\__,_/ .___/ .___/ ',
 		'                             /_/   /_/      '
 	] as const;
-
 	const PATH = 'C:/User/' as const;
 	const COMMANDS = [
 		'/about to know more about the app.',
@@ -89,9 +88,29 @@
 	let userInput = '';
 	let history: string[] = [''];
 	let index = 0;
+
+	$: zHeight = $zStack.findIndex((name) => name === cliSetting.name);
 </script>
 
-<Window windowName="Command Line" widthWithUnit="75ch" positonX={290} positonY={210}>
+<Window
+	windowName={cliSetting.name}
+	id={cliSetting.id}
+	widthWithUnit="75ch"
+	positonX={290}
+	positonY={210}
+	{zHeight}
+	minimized={false}
+	on:focusin={() => {
+		$taskbar.focus = cliSetting.name;
+		zStack.update((name) => {
+			const rest = name.filter((name) => name !== cliSetting.name);
+			return [...rest, cliSetting.name];
+		});
+	}}
+	on:focusout={() => {
+		$taskbar.focus = '';
+	}}
+>
 	<div
 		class="prose-xl h-[400px] w-full overflow-x-hidden overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-black pl-2 text-[#7f787f] *:whitespace-pre *:text-wrap *:[overflow-anchor:none]"
 		id="command-line"

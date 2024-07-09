@@ -1,8 +1,15 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
 	export let windowName: string;
+	export let id: string;
 	export let widthWithUnit: string;
 	export let positonX: number;
 	export let positonY: number;
+	export let zHeight = 0;
+	export let minimized: boolean;
 
 	let dragFlag = false;
 	let referenceX = 0;
@@ -12,26 +19,26 @@
 </script>
 
 <section
-	class="absolute left-[--x-position] top-[--y-position] h-fit w-[--width] border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
-	class:z-0={!focused}
-	class:z-10={focused}
+	class="absolute left-[--x-position] top-[--y-position] z-[--height] h-fit w-[--width] border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
 	style:--x-position="{positonX}px"
 	style:--y-position="{positonY}px"
+	style:--height={zHeight}
 	style:--width={widthWithUnit}
+	{id}
 	tabindex="-1"
 	on:focusin={() => {
 		focused = true;
+		dispatch('focusin');
 	}}
 	on:focusout={() => {
 		focused = false;
+		dispatch('focusout');
 	}}
 >
 	<div
-		class="flex w-full select-none flex-row justify-center gap-2 bg-gradient-to-r p-1 pl-2 font-bold"
-		class:from-[#6b656b]={!focused}
-		class:to-[#7f787f]={!focused}
-		class:from-[#00007f]={focused}
-		class:to-[#0000a6]={focused}
+		class="flex w-full select-none flex-row justify-center gap-2 bg-gradient-to-r from-[--from] to-[--to] p-1 pl-2 font-bold"
+		style:--from={focused ? '#00007f' : '#6b656b'}
+		style:--to={focused ? '#0000a6' : '#7f787f'}
 		role="none"
 		on:mousedown={({ screenX, screenY }) => {
 			dragFlag = true;

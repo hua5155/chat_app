@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Chat from './Chat.svelte';
 	import CLI from './CLI.svelte';
+	import Taskbar from './Taskbar.svelte';
 	import type { PageData } from './$types';
 	import { dev } from '$app/environment';
 	import { onDestroy, onMount } from 'svelte';
@@ -25,6 +26,7 @@
 >
 	<Chat bind:chat={data.messages}></Chat>
 	<CLI></CLI>
+	<Taskbar></Taskbar>
 </main>
 
 <style>

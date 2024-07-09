@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { scrollToBottom } from '$lib/util/ui';
-	import { username } from './store';
+	import { username, chatSetting, taskbar, zStack } from './store';
 
 	export let chat: SelectChatSchema[];
 
@@ -39,9 +39,29 @@
 			eventSource.close();
 		};
 	});
+
+	$: zHeight = $zStack.findIndex((name) => name === chatSetting.name);
 </script>
 
-<Window windowName="Chat" widthWithUnit="80ch" positonX={200} positonY={100}>
+<Window
+	windowName={chatSetting.name}
+	id={chatSetting.id}
+	widthWithUnit="80ch"
+	positonX={200}
+	positonY={100}
+	{zHeight}
+	minimized={false}
+	on:focusin={() => {
+		$taskbar.focus = chatSetting.name;
+		zStack.update((name) => {
+			const rest = name.filter((name) => name !== chatSetting.name);
+			return [...rest, chatSetting.name];
+		});
+	}}
+	on:focusout={() => {
+		$taskbar.focus = '';
+	}}
+>
 	<div
 		class="prose-xl h-96 w-full max-w-none overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-white"
 		use:scrollToBottom
