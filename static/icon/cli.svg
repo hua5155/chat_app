@@ -1,0 +1,19 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_7_53" fill="white">
+<path d="M40 70H360V335H40V70Z"/>
+</mask>
+<path d="M40 70H360V335H40V70Z" fill="#8F828F"/>
+<path d="M360 335V345H370V335H360ZM350 70V335H370V70H350ZM360 325H40V345H360V325Z" fill="black" mask="url(#path-1-inside-1_7_53)"/>
+<rect x="50" y="80" width="290" height="235" fill="#BFB8BF"/>
+<path d="M60 140H330V305H60V140Z" fill="black"/>
+<rect x="50" y="80" width="290" height="50" fill="#0000A6"/>
+<rect x="220" y="90" width="30" height="30" fill="black"/>
+<rect x="220" y="90" width="25" height="25" fill="#BFB8BF"/>
+<rect x="260" y="90" width="30" height="30" fill="black"/>
+<rect x="260" y="90" width="25" height="25" fill="#BFB8BF"/>
+<rect x="300" y="90" width="30" height="30" fill="black"/>
+<rect x="300" y="90" width="25" height="25" fill="#BFB8BF"/>
+<rect x="80" y="160" width="210" height="15" fill="#7F787F"/>
+<rect x="80" y="195" width="170" height="15" fill="#7F787F"/>
+<rect x="80" y="230" width="130" height="15" fill="#7F787F"/>
+</svg>
