@@ -1,65 +1,67 @@
 <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="10" height="10" transform="matrix(-1 0 0 1 160 161)" fill="black"/>
-<rect width="10" height="100" transform="matrix(-1 0 0 1 350 61)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 340 51)" fill="black"/>
-<rect width="170" height="10" transform="matrix(-1 0 0 1 330 41)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 160 51)" fill="black"/>
-<rect width="10" height="100" transform="matrix(-1 0 0 1 150 61)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 340 161)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 290 191)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 290 201)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 300 201)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 260 181)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 270 191)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 280 201)" fill="black"/>
-<rect width="40" height="10" transform="matrix(-1 0 0 1 330 171)" fill="black"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 290 181)" fill="black"/>
-<rect width="90" height="10" transform="matrix(-1 0 0 1 250 171)" fill="black"/>
-<rect width="10" height="100" transform="matrix(-1 0 0 1 340 61)" fill="#FDFCB7"/>
-<rect width="10" height="100" transform="matrix(-1 0 0 1 160 61)" fill="#FDFCB7"/>
-<rect width="40" height="10" transform="matrix(-1 0 0 1 290 171)" fill="#FDFCB7"/>
-<rect width="20" height="10" transform="matrix(-1 0 0 1 280 181)" fill="#FDFCB7"/>
-<rect width="10" height="10" transform="matrix(-1 0 0 1 280 191)" fill="#FDFCB7"/>
-<rect width="170" height="120" transform="matrix(-1 0 0 1 330 51)" fill="#FDFCB7"/>
-<rect width="20" height="20" transform="matrix(-1 0 0 1 310 101)" fill="black"/>
-<rect width="20" height="20" transform="matrix(-1 0 0 1 255 101)" fill="black"/>
-<rect width="20" height="20" transform="matrix(-1 0 0 1 200 101)" fill="black"/>
-<g filter="url(#filter0_d_32_121)">
-<rect x="240" y="251" width="10" height="10" fill="black"/>
-<rect x="50" y="151" width="10" height="100" fill="black"/>
-<rect x="60" y="141" width="10" height="10" fill="black"/>
-<rect x="70" y="131" width="170" height="10" fill="black"/>
-<rect x="240" y="141" width="10" height="10" fill="black"/>
-<rect x="250" y="151" width="10" height="100" fill="black"/>
-<rect x="60" y="251" width="10" height="10" fill="black"/>
-<rect x="110" y="281" width="10" height="10" fill="black"/>
-<rect x="110" y="291" width="10" height="10" fill="black"/>
-<rect x="100" y="291" width="10" height="10" fill="black"/>
-<rect x="140" y="271" width="10" height="10" fill="black"/>
-<rect x="130" y="281" width="10" height="10" fill="black"/>
-<rect x="120" y="291" width="10" height="10" fill="black"/>
-<rect x="70" y="261" width="40" height="10" fill="black"/>
-<rect x="110" y="271" width="10" height="10" fill="black"/>
-<rect x="150" y="261" width="90" height="10" fill="black"/>
-<rect x="60" y="151" width="10" height="100" fill="#FDFCB7"/>
-<rect x="240" y="151" width="10" height="100" fill="#FDFCB7"/>
-<rect x="110" y="261" width="40" height="10" fill="#FDFCB7"/>
-<rect x="120" y="271" width="20" height="10" fill="#FDFCB7"/>
-<rect x="120" y="281" width="10" height="10" fill="#FDFCB7"/>
-<rect x="70" y="141" width="170" height="120" fill="#FDFCB7"/>
-<rect x="90" y="191" width="20" height="20" fill="black"/>
-<rect x="145" y="191" width="20" height="20" fill="black"/>
-<rect x="200" y="191" width="20" height="20" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 160 160)" fill="black"/>
+<rect width="10" height="100" transform="matrix(-1 0 0 1 350 60)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 340 50)" fill="black"/>
+<rect width="170" height="10" transform="matrix(-1 0 0 1 330 40)" fill="#7A7A7A"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 160 50)" fill="#7A7A7A"/>
+<rect width="10" height="100" transform="matrix(-1 0 0 1 150 60)" fill="#7A7A7A"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 340 160)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 290 190)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 290 200)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 300 200)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 260 180)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 270 190)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 280 200)" fill="black"/>
+<rect width="40" height="10" transform="matrix(-1 0 0 1 330 170)" fill="black"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 290 180)" fill="black"/>
+<rect width="90" height="10" transform="matrix(-1 0 0 1 250 170)" fill="black"/>
+<rect width="10" height="100" transform="matrix(-1 0 0 1 340 60)" fill="#FCFB9C"/>
+<rect width="40" height="10" transform="matrix(-1 0 0 1 290 170)" fill="#FCFB9C"/>
+<rect width="20" height="10" transform="matrix(-1 0 0 1 280 180)" fill="#FCFB9C"/>
+<rect width="10" height="10" transform="matrix(-1 0 0 1 280 190)" fill="#FCFB9C"/>
+<rect width="170" height="110" transform="matrix(-1 0 0 1 330 60)" fill="#FCFB9C"/>
+<rect width="10" height="100" transform="matrix(-1 0 0 1 160 60)" fill="white"/>
+<rect x="160" y="50" width="170" height="10" fill="white"/>
+<rect width="20" height="20" transform="matrix(-1 0 0 1 310 100)" fill="black"/>
+<rect width="20" height="20" transform="matrix(-1 0 0 1 255 100)" fill="black"/>
+<rect width="20" height="20" transform="matrix(-1 0 0 1 200 100)" fill="black"/>
+<g filter="url(#filter0_d_40_2)">
+<rect x="240" y="250" width="10" height="10" fill="black"/>
+<rect x="50" y="150" width="10" height="100" fill="#7A7A7A"/>
+<rect x="60" y="140" width="10" height="10" fill="#7A7A7A"/>
+<rect x="70" y="130" width="170" height="10" fill="#7A7A7A"/>
+<rect x="240" y="140" width="10" height="10" fill="black"/>
+<rect x="250" y="150" width="10" height="100" fill="black"/>
+<rect x="60" y="250" width="10" height="10" fill="black"/>
+<rect x="110" y="280" width="10" height="10" fill="black"/>
+<rect x="110" y="290" width="10" height="10" fill="black"/>
+<rect x="100" y="290" width="10" height="10" fill="black"/>
+<rect x="140" y="270" width="10" height="10" fill="black"/>
+<rect x="130" y="280" width="10" height="10" fill="black"/>
+<rect x="120" y="290" width="10" height="10" fill="black"/>
+<rect x="70" y="260" width="40" height="10" fill="black"/>
+<rect x="110" y="270" width="10" height="10" fill="black"/>
+<rect x="150" y="260" width="90" height="10" fill="black"/>
+<rect x="240" y="150" width="10" height="100" fill="#FCFB9C"/>
+<rect x="110" y="260" width="40" height="10" fill="#FCFB9C"/>
+<rect x="120" y="270" width="20" height="10" fill="#FCFB9C"/>
+<rect x="120" y="280" width="10" height="10" fill="#FCFB9C"/>
+<rect x="70" y="150" width="170" height="110" fill="#FCFB9C"/>
+<rect x="60" y="150" width="10" height="100" fill="white"/>
+<rect x="70" y="140" width="170" height="10" fill="white"/>
+<rect x="90" y="190" width="20" height="20" fill="black"/>
+<rect x="145" y="190" width="20" height="20" fill="black"/>
+<rect x="200" y="190" width="20" height="20" fill="black"/>
 </g>
 <defs>
-<filter id="filter0_d_32_121" x="50" y="131" width="230" height="190" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_40_2" x="50" y="130" width="230" height="190" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dx="20" dy="20"/>
 <feComposite in2="hardAlpha" operator="out"/>
 <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_32_121"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_32_121" result="shape"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_40_2"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_40_2" result="shape"/>
 </filter>
 </defs>
 </svg>
