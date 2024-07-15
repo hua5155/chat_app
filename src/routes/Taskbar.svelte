@@ -4,7 +4,7 @@
 </script>
 
 <section
-	class="prose-xl absolute bottom-0 left-0 flex h-11 w-screen flex-row gap-2 border-t-2 border-t-white bg-[#bfb8bf] p-1"
+	class="prose-xl absolute bottom-0 left-0 z-50 flex h-11 w-screen flex-row gap-2 border-t-2 border-t-white bg-[#bfb8bf] p-1"
 >
 	<button class="prose-xl select-none px-2">Start</button>
 	{#each $taskbar.windows as window}
