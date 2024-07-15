@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/component/Button.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -47,9 +48,9 @@
 		}}
 	>
 		<p class="prose max-w-none grow text-white">{windowName}</p>
-		<button class="h-7 w-7 text-center align-middle">-</button>
-		<button class="h-7 w-7 text-center align-middle">+</button>
-		<button class="h-7 w-7 text-center align-middle">x</button>
+		<Button class="h-7 w-7 text-center align-middle">-</Button>
+		<Button class="h-7 w-7 text-center align-middle">+</Button>
+		<Button class="h-7 w-7 text-center align-middle">x</Button>
 	</div>
 	<div class="w-full py-1">
 		<div class="w-full border-2 border-b-white border-t-[#837c83]"></div>

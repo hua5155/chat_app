@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Window from '$lib/component/Window.svelte';
+	import Button from '$lib/component/Button.svelte';
 	import type { SelectChatSchema, ChatSSE } from '$drizzle/schema';
 	import { dev } from '$app/environment';
 	import { onMount } from 'svelte';
@@ -12,8 +13,6 @@
 	let reply = '';
 	let history: string[] = [''];
 	let index = 0;
-
-	let buttonFlag = false;
 
 	onMount(() => {
 		const eventSource = new EventSource('/api/chat');
@@ -137,23 +136,7 @@
 				}
 			}}
 		/>
-		<button
-			class="prose-xl select-none px-2"
-			class:border-b-white={buttonFlag}
-			class:border-l-black={buttonFlag}
-			class:border-r-white={buttonFlag}
-			class:border-t-black={buttonFlag}
-			class:bg-[#b3aab3]={buttonFlag}
-			type="submit"
-			on:mousedown={() => {
-				buttonFlag = true;
-			}}
-			on:mouseup={() => {
-				buttonFlag = false;
-			}}
-		>
-			Send
-		</button>
+		<Button class="prose-xl select-none px-2">Send</Button>
 	</form>
 </Window>
 
