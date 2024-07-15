@@ -8,13 +8,14 @@
 >
 	<button class="prose-xl select-none px-2">Start</button>
 	{#each $taskbar.windows as window}
+		{@const isFocused = $taskbar.focus === window.name}
 		<button
 			class="prose-xl select-none px-2"
-			class:border-b-white={$taskbar.focus === window.name}
-			class:border-l-black={$taskbar.focus === window.name}
-			class:border-r-white={$taskbar.focus === window.name}
-			class:border-t-black={$taskbar.focus === window.name}
-			class:bg-[#b3aab3]={$taskbar.focus === window.name}
+			class:border-b-white={isFocused}
+			class:border-l-black={isFocused}
+			class:border-r-white={isFocused}
+			class:border-t-black={isFocused}
+			class:bg-[#b3aab3]={isFocused}
 			on:click={() => {
 				$taskbar.focus = window.name;
 				setFocus(window.id);
