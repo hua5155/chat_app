@@ -10,7 +10,11 @@ const drizzle = getDrizzleClient();
 
 export const load: PageServerLoad = async () => {
 	const lastFiftyRows = drizzle
-		.select()
+		.select({
+			username: chat.username,
+			message: chat.message,
+			timestamp: chat.timestamp
+		})
 		.from(chat)
 		.orderBy(desc(chat.timestamp))
 		.limit(50)

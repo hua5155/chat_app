@@ -1,43 +1,30 @@
 <script lang="ts">
 	import Window from '$lib/component/Window.svelte';
 	import Button from '$lib/component/Button.svelte';
-	import type { SelectChatSchema, ChatSSE } from '$drizzle/schema';
+	import type { ChatServerLoad, ChatWebSocket } from '$drizzle/schema';
 	import { dev } from '$app/environment';
-	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { scrollToBottom } from '$lib/util/ui';
 	import { username, chatSetting, taskbar, zStack } from './store';
+	import { getSupabaseClient } from '$lib/client/supabase';
 
-	export let chat: SelectChatSchema[];
+	const supabase = getSupabaseClient();
+	const chatChannel = supabase.channel('chat');
+
+	export let chat: ChatServerLoad[];
 
 	let reply = '';
 	let history: string[] = [''];
 	let index = 0;
 
-	onMount(() => {
-		const eventSource = new EventSource('/api/chat');
-		eventSource.onerror = (err) => {
-			console.log(err);
-		};
-		eventSource.addEventListener('start', (event) => {
-			console.log(event.data);
-		});
-		eventSource.addEventListener('pull', (event) => {
-			// console.log('pull event');
-			// if (dev) console.log(event.data);
-			const eventData = JSON.parse(event.data) as ChatSSE[];
-			const newMessages = eventData.map((value) => {
-				const { timestamp, ...rest } = value;
-				return { ...rest, timestamp: new Date(timestamp) };
-			});
-			chat = [...chat, ...newMessages];
-		});
-
-		return () => {
-			console.log('closing connection');
-			eventSource.close();
-		};
-	});
+	chatChannel
+		.on('broadcast', { event: 'newMessage' }, ({ payload }) => {
+			const eventData = payload as ChatWebSocket;
+			const { timestamp, ...rest } = eventData;
+			const newMessage = { ...rest, timestamp: new Date(timestamp) };
+			chat = [...chat, newMessage];
+		})
+		.subscribe();
 
 	$: zHeight = $zStack.findIndex((name) => name === chatSetting.name);
 </script>
@@ -65,7 +52,7 @@
 		class="prose-xl h-96 w-full max-w-none overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-white"
 		use:scrollToBottom
 	>
-		{#each chat as message (message.id)}
+		{#each chat as message}
 			<div class="m-0 flex flex-row text-pretty leading-7 [overflow-anchor:none]">
 				<p class="m-0 grow pl-9 -indent-8">
 					<span class="text-[#0000ff]">{`<${message.username}> `}</span>
@@ -93,6 +80,14 @@
 				console.log('Empty message');
 				cancel();
 			}
+
+			const newMessage = { username: $username, message: reply, timestamp: new Date() };
+			chatChannel.send({
+				type: 'broadcast',
+				event: 'newMessage',
+				payload: newMessage
+			});
+			chat = [...chat, newMessage];
 
 			history.splice(1, 0, reply);
 			index = 0;

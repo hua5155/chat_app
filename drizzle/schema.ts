@@ -10,7 +10,9 @@ export const chat = pgTable('Chat', {
 });
 
 const selectChatSchema = createSelectSchema(chat);
-export type SelectChatSchema = z.infer<typeof selectChatSchema>;
 
-const chatSSE = selectChatSchema.extend({ timestamp: z.string() });
-export type ChatSSE = z.infer<typeof chatSSE>;
+const chatServerLoad = selectChatSchema.omit({ id: true });
+export type ChatServerLoad = z.infer<typeof chatServerLoad>;
+
+const chatWebSocket = selectChatSchema.extend({ timestamp: z.string() }).omit({ id: true });
+export type ChatWebSocket = z.infer<typeof chatWebSocket>;
