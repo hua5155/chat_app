@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-}
-@layer components {
 	button {
 		@apply border-2 border-b-black border-l-white border-r-black border-t-white bg-[#bfb8bf];
 	}
+}
+@layer components {
 }
 @layer utilities {
 }
