@@ -12,6 +12,8 @@
 [ASCII art generator](https://patorjk.com/software/taag/)
 [Windows 95 icon viwer](https://win98icons.alexmeub.com/)
 [Windwos 95 emulator](https://www.pcjs.org/software/pcx86/sys/windows/win95/4.00.950/)
+[Pixel art generator](https://giventofly.github.io/pixelit/)
+[Pixel circle generator](https://www.gamergeeks.net/apps/pixel/circle-generator)
 
 ---
 
@@ -45,7 +47,7 @@ Probably the dumbest way.
     - Wasting bandwidth.
     - Using `invalidate()` will cause chat losing history beyond 50 messages.
 
-## Server side polling + SSE (Server Sent Event)
+## ~~Server side polling + SSE (Server Sent Event)~~
 Polling DB with filtering query based on last known identifiers.
 
 - Pros

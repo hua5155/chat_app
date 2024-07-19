@@ -3,10 +3,41 @@
 	import Button from '$lib/component/Button.svelte';
 	import type { ChatServerLoad, ChatWebSocket } from '$drizzle/schema';
 	import { dev } from '$app/environment';
-	import { enhance } from '$app/forms';
 	import { scrollToBottom } from '$lib/util/ui';
 	import { username, chatSetting, taskbar, zStack } from './store';
 	import { getSupabaseClient } from '$lib/client/supabase';
+
+	function onSend() {
+		if ($username === '') {
+			if (dev) console.log('Empty username');
+			return;
+		}
+		if (message === '') {
+			if (dev) console.log('Empty message');
+			return;
+		}
+
+		if (dev) console.log(`send message: ${message}`);
+		const newMessage = { username: $username, message: message };
+		fetch('/api/chat', {
+			method: 'post',
+			body: JSON.stringify(newMessage)
+		});
+
+		const withTimestamp = { ...newMessage, timestamp: new Date() };
+		chatChannel.send({
+			type: 'broadcast',
+			event: 'newMessage',
+			payload: withTimestamp
+		});
+		chat = [...chat, withTimestamp];
+
+		history.splice(1, 0, message);
+		index = 0;
+		message = '';
+
+		scrollToBottom('chat');
+	}
 
 	const supabase = getSupabaseClient();
 	const chatChannel = supabase.channel('chat');
@@ -66,49 +97,12 @@
 		<div class="h-[1px] [overflow-anchor:auto]"></div>
 	</div>
 	<div class="w-full pt-1"></div>
-	<form
-		class="flex w-full flex-row gap-2"
-		action="?/sendMessage"
-		method="post"
-		autocomplete="off"
-		use:enhance={({ formData, cancel }) => {
-			if ($username === '') {
-				console.log('Empty username');
-				cancel();
-			}
-			if (message === '') {
-				console.log('Empty message');
-				cancel();
-			}
-
-			const newMessage = { username: $username, message: message, timestamp: new Date() };
-			chatChannel.send({
-				type: 'broadcast',
-				event: 'newMessage',
-				payload: newMessage
-			});
-			chat = [...chat, newMessage];
-
-			history.splice(1, 0, message);
-			index = 0;
-			message = '';
-
-			formData.append('username', $username);
-			// if (dev) console.log(formData);
-			// cancel();
-
-			return async ({ result, update }) => {
-				scrollToBottom('chat');
-				// if (dev) console.log(document.activeElement);
-				// update();
-			};
-		}}
-	>
+	<div class="flex w-full flex-row gap-2">
 		<input
 			class="prose-xl grow border-2 border-b-white border-l-black border-r-white border-t-black px-2 focus:outline-none"
 			type="text"
 			name="message"
-			autofocus={true}
+			autocomplete="off"
 			bind:value={message}
 			on:keydown={({ key }) => {
 				// if (dev) console.log(key);
@@ -130,10 +124,20 @@
 				if (key === 'Escape') {
 					message = '';
 				}
+				if (key === 'Enter') {
+					onSend();
+				}
 			}}
 		/>
-		<Button class="prose-xl select-none px-2">Send</Button>
-	</form>
+		<Button
+			class="prose-xl select-none px-2"
+			on:click={() => {
+				onSend();
+			}}
+		>
+			Send
+		</Button>
+	</div>
 </Window>
 
 <style>
