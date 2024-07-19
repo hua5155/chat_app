@@ -35,19 +35,14 @@
 			}
 		} else if (command === '/about') {
 			writeGrayLine(
-				"Just a Windows 95 styled messaging app so I get to practice backend related things(API, DB, ORM), and doing some frontend that's not copying some other website."
+				'A Windows 95 styled messaging app to practice backend related things(API, DB, ORM, WebSocket, SSE).'
 			);
 			writeGrayLine(' ');
 			writeGrayLine(
-				'The app is built by SvelteKit, TailwindCSS, Drizzle ORM using Vercel Postgres and hosted on vercel.'
+				"The app is built by SvelteKit, TailwindCSS, Drizzle ORM using Supbase's PostgreSQL and hosted on Vercel."
 			);
 			writeGrayLine(' ');
-			writeGrayLine(
-				'Chat is updated by polling DB with filtering query based on last known row from server side and sent to client via SSE.'
-			);
-			writeGrayLine(
-				"This is a very rough workaround that I can't share data between API request(and probably shouldn't), I might tryout Supabase later."
-			);
+			writeGrayLine("Chat is updated by client-to-client WebSocket using Supabase's API.");
 		} else if (command === '/nickname') {
 			const start = input.indexOf('"') + 1;
 			const end = input.indexOf('"', start);

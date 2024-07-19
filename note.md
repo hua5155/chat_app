@@ -4,11 +4,14 @@
 - [ ] ~~Change from timestamp from ISO 8601 to Unix time?~~
     - Stick with ISO8601 for human readability.
 - [x] Update chat
-- [x] ASCII art inside CLI
+- [x] Try using supabase and update using websocket?
 - [ ] More CLI commands
-- [ ] Better command parsing
+- [x] Better command parsing
+- [ ] Task bar
 
 [ASCII art generator](https://patorjk.com/software/taag/)
+[Windows 95 icon viwer](https://win98icons.alexmeub.com/)
+[Windwos 95 emulator](https://www.pcjs.org/software/pcx86/sys/windows/win95/4.00.950/)
 
 ---
 
@@ -60,17 +63,36 @@ Just use the returned row when inserting into the buffer, then subscribe to it i
     - Probably don't work on serverless.
 
 ## WebSocket
-- Vercel recommended solutions:
-    - Ably
-    - Convex
-    - Liveblocks
-    - Partykit
-    - Pusher
-    - PubNub
-    - TalkJS
-    - SendBird
+Supabase provided Postgres along with WebSocket API.
 
 - Pros
     - Bi-directional data transfer.
+    - Supbase is FOSS and can be self hosted.
 - Cons
-    - Need 3rd party service on serverless.
+    - Haven't thought of any.
+
+# Task bar
+## stores needed
+1. state of each window
+    - visibility
+2. who is in focus
+    - Window name?
+3. z height
+    - array order?
+4. task bar order
+    - array order?
+
+## update focus, visibility, z height
+1. update window states inside `Window.svelte` by passing binded store from `Chat.svelte`, `CLI.svelte`, etc ?
+2. update task bar order 
+
+- taskbar items
+    1. change visibility
+    2. change focus
+    3. change z height
+- window close button
+    1. change visibility
+    2. remove from taskbar store
+- window minimize button
+    1. change visibility
+    2. change focus
