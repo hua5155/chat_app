@@ -7,6 +7,7 @@
 	import { dev } from '$app/environment';
 	import { onDestroy, onMount } from 'svelte';
 	import { username, cliSetting, chatSetting } from './store';
+	import { setFocus } from '$lib/util/ui';
 
 	function getRandomNumber(min: number, max: number) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
@@ -23,11 +24,29 @@
 </script>
 
 <main
-	class="relative h-screen w-screen overflow-hidden bg-[#008080] font-['Source_Code_Pro','Noto_Sans_TC'] text-black"
+	class="relative h-screen w-screen overflow-hidden bg-[#008080] p-5 font-['Source_Code_Pro','Noto_Sans_TC'] text-black"
 >
 	<div class="grid h-fit w-fit grid-flow-row *:select-none">
-		<Icon url="/icon/chat.svg" id={chatSetting.id} iconName="Chat"></Icon>
-		<Icon url="/icon/cli.svg" id={cliSetting.id} iconName="CLI"></Icon>
+		<Icon
+			src="/icon/chat.png"
+			iconName="Chat"
+			on:dblclick={() => {
+				setFocus(chatSetting.id);
+			}}
+		></Icon>
+		<Icon
+			src="/icon/cli.png"
+			iconName="CLI"
+			on:dblclick={() => {
+				setFocus(cliSetting.id);
+			}}
+		></Icon>
+		<div class="relative">
+			<a href="https://github.com/hua5155/chat_app" target="_blank" rel="noopener noreferrer">
+				<img class="w-[100px]" src="/icon/github.png" alt="" on:dragstart|preventDefault />
+			</a>
+			<p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-white">GitHub</p>
+		</div>
 	</div>
 	<Chat bind:chat={data.messages}></Chat>
 	<CLI></CLI>
