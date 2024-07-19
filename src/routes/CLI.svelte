@@ -123,9 +123,9 @@
 		{/each}
 
 		<div class="inline-flex w-full text-white" id="current-line">
-			<span class="w-fit pr-[1ch]">{`${PATH}${$username}>`}</span>
+			<span class="flex-none pr-[1ch]">{`${PATH}${$username}>`}</span>
 			<input
-				class="h-fit w-[35ch] bg-black focus:outline-none"
+				class="h-fit flex-auto bg-black focus:outline-none"
 				type="text"
 				id="user-input"
 				bind:value={userInput}
