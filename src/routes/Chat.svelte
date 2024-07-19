@@ -13,14 +13,13 @@
 
 	export let chat: ChatServerLoad[];
 
-	let reply = '';
+	let message = '';
 	let history: string[] = [''];
 	let index = 0;
 
 	chatChannel
 		.on('broadcast', { event: 'newMessage' }, ({ payload }) => {
-			const eventData = payload as ChatWebSocket;
-			const { timestamp, ...rest } = eventData;
+			const { timestamp, ...rest } = payload as ChatWebSocket;
 			const newMessage = { ...rest, timestamp: new Date(timestamp) };
 			chat = [...chat, newMessage];
 		})
@@ -76,12 +75,12 @@
 				console.log('Empty username');
 				cancel();
 			}
-			if (reply === '') {
+			if (message === '') {
 				console.log('Empty message');
 				cancel();
 			}
 
-			const newMessage = { username: $username, message: reply, timestamp: new Date() };
+			const newMessage = { username: $username, message: message, timestamp: new Date() };
 			chatChannel.send({
 				type: 'broadcast',
 				event: 'newMessage',
@@ -89,9 +88,9 @@
 			});
 			chat = [...chat, newMessage];
 
-			history.splice(1, 0, reply);
+			history.splice(1, 0, message);
 			index = 0;
-			reply = '';
+			message = '';
 
 			formData.append('username', $username);
 			// if (dev) console.log(formData);
@@ -108,7 +107,7 @@
 			type="text"
 			name="message"
 			autofocus={true}
-			bind:value={reply}
+			bind:value={message}
 			on:keydown={({ key }) => {
 				// if (dev) console.log(key);
 
@@ -117,17 +116,17 @@
 					if (index > history.length - 1) {
 						index = history.length - 1;
 					}
-					reply = history[index];
+					message = history[index];
 				}
 				if (key === 'ArrowDown') {
 					index -= 1;
 					if (index < 0) {
 						index = 0;
 					}
-					reply = history[index];
+					message = history[index];
 				}
 				if (key === 'Escape') {
-					reply = '';
+					message = '';
 				}
 			}}
 		/>

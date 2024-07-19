@@ -45,8 +45,6 @@ export const actions: Actions = {
 
 		if (zParsed.success) {
 			const { username, message } = zParsed.data;
-			// const ISOTime = new Date().toISOString();
-			// if (dev) console.log(ISOTime);
 
 			await drizzle.insert(chat).values({
 				id: nanoid(),
