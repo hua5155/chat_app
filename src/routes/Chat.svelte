@@ -49,6 +49,7 @@
 >
 	<div
 		class="prose-xl h-96 w-full max-w-none overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-white"
+		id="chat"
 		use:scrollToBottom
 	>
 		{#each chat as message}
@@ -97,6 +98,7 @@
 			// cancel();
 
 			return async ({ result, update }) => {
+				scrollToBottom('chat');
 				// if (dev) console.log(document.activeElement);
 				// update();
 			};

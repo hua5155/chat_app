@@ -1,5 +1,12 @@
-export function scrollToBottom(element: HTMLElement | null) {
+export function scrollToBottom(element: HTMLElement | null | string) {
 	if (element === null) {
+		return;
+	}
+
+	if (typeof element === 'string') {
+		document.getElementById(element)?.scroll({
+			top: document.getElementById(element)!.scrollHeight
+		});
 		return;
 	}
 
