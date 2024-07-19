@@ -5,6 +5,6 @@ export default defineConfig({
 	out: './drizzle/migrations/', // migration file output.
 	dialect: 'postgresql',
 	dbCredentials: {
-		url: process.env.POSTGRES_URL ?? ''
+		url: process.env.SUPABASE_POSTGRES_URL ?? ''
 	}
 });

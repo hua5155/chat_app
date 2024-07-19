@@ -19,16 +19,19 @@ importers:
         version: 0.8.0
       drizzle-orm:
         specifier: ^0.31.2
-        version: 0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0)
+        version: 0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0)(postgres@3.4.4)
       drizzle-zod:
         specifier: ^0.5.1
-        version: 0.5.1(drizzle-orm@0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0))(zod@3.23.8)
+        version: 0.5.1(drizzle-orm@0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0)(postgres@3.4.4))(zod@3.23.8)
       nanoid:
         specifier: ^5.0.7
         version: 5.0.7
       pg:
         specifier: ^8.12.0
         version: 8.12.0
+      postgres:
+        specifier: ^3.4.4
+        version: 3.4.4
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -2179,6 +2182,10 @@ packages:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
 
+  postgres@3.4.4:
+    resolution: {integrity: sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==}
+    engines: {node: '>=12'}
+
   prebuild-install@7.1.2:
     resolution: {integrity: sha512-UnNke3IQb6sgarcZIDU3gbMeTp/9SSU1DAIkil7PrqG1vZlBtY5msYccSKSHDqa3hNg436IXK+SNImReuA1wEQ==}
     engines: {node: '>=10'}
@@ -3759,17 +3766,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0):
+  drizzle-orm@0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0)(postgres@3.4.4):
     optionalDependencies:
       '@neondatabase/serverless': 0.7.2
       '@types/pg': 8.6.6
       '@vercel/postgres': 0.8.0
       better-sqlite3: 11.0.0
       pg: 8.12.0
+      postgres: 3.4.4
 
-  drizzle-zod@0.5.1(drizzle-orm@0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0))(zod@3.23.8):
+  drizzle-zod@0.5.1(drizzle-orm@0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0)(postgres@3.4.4))(zod@3.23.8):
     dependencies:
-      drizzle-orm: 0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0)
+      drizzle-orm: 0.31.2(@neondatabase/serverless@0.7.2)(@types/pg@8.6.6)(@vercel/postgres@0.8.0)(better-sqlite3@11.0.0)(pg@8.12.0)(postgres@3.4.4)
       zod: 3.23.8
 
   eastasianwidth@0.2.0: {}
@@ -4601,6 +4609,8 @@ snapshots:
   postgres-interval@1.2.0:
     dependencies:
       xtend: 4.0.2
+
+  postgres@3.4.4: {}
 
   prebuild-install@7.1.2:
     dependencies:

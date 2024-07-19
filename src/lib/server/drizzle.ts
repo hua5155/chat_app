@@ -1,10 +1,10 @@
-import { drizzle as orm } from 'drizzle-orm/vercel-postgres';
+import { drizzle as orm } from 'drizzle-orm/postgres-js';
 import { sql } from '@vercel/postgres';
-import { POSTGRES_URL } from '$env/static/private';
+import postgres from 'postgres';
+import { POSTGRES_URL, SUPABASE_POSTGRES_URL } from '$env/static/private';
 
-process.env.POSTGRES_URL = POSTGRES_URL;
-
-const drizzle = orm(sql);
+const client = postgres(SUPABASE_POSTGRES_URL);
+const drizzle = orm(client);
 export const getDrizzleClient = () => {
 	return drizzle;
 };
