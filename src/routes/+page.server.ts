@@ -7,22 +7,22 @@ import { chat } from '$drizzle/schema';
 const drizzle = getDrizzleClient();
 
 export const load: PageServerLoad = async () => {
-	const lastFiftyRows = drizzle
-		.select({
-			username: chat.username,
-			message: chat.message,
-			timestamp: chat.timestamp
-		})
-		.from(chat)
-		.orderBy(desc(chat.timestamp))
-		.limit(50)
-		.as('subquery');
-	const ascendingOrdered = await drizzle
-		.select()
-		.from(lastFiftyRows)
-		.orderBy(asc(lastFiftyRows.timestamp));
+    const lastFiftyRows = drizzle
+        .select({
+            username: chat.username,
+            message: chat.message,
+            timestamp: chat.timestamp
+        })
+        .from(chat)
+        .orderBy(desc(chat.timestamp))
+        .limit(50)
+        .as('subquery');
+    const ascendingOrdered = await drizzle
+        .select()
+        .from(lastFiftyRows)
+        .orderBy(asc(lastFiftyRows.timestamp));
 
-	// if (dev) console.log(ascendingOrdered);
+    // if (dev) console.log(ascendingOrdered);
 
-	return { messages: ascendingOrdered };
+    return { messages: ascendingOrdered };
 };
