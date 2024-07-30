@@ -2,6 +2,14 @@
     import '../app.css';
 </script>
 
+<svelte:head>
+    <title>SvelteKit Chat App</title>
+    <meta
+        name="description"
+        content="A Windows 95 themed chat app"
+    />
+</svelte:head>
+
 <slot />
 
 <style>
