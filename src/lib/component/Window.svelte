@@ -10,7 +10,7 @@
     export let positonX: number;
     export let positonY: number;
     export let zHeight = 0;
-    export let minimized: boolean;
+    export let minimized = true;
 
     let dragFlag = false;
     let referenceX = 0;
@@ -21,6 +21,7 @@
 
 <section
     class="absolute left-[--x-position] top-[--y-position] z-[--height] h-fit w-[--width] border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
+    class:hidden={minimized}
     style:--x-position="{positonX}px"
     style:--y-position="{positonY}px"
     style:--height={zHeight}
@@ -48,7 +49,14 @@
         }}
     >
         <p class="prose max-w-none grow text-white">{windowName}</p>
-        <Button class="h-7 w-7 text-center align-middle">-</Button>
+        <Button
+            class="h-7 w-7 text-center align-middle"
+            on:click={() => {
+                minimized = true;
+            }}
+        >
+            -
+        </Button>
         <Button class="h-7 w-7 text-center align-middle">+</Button>
         <Button class="h-7 w-7 text-center align-middle">x</Button>
     </div>
