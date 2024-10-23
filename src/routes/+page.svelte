@@ -24,9 +24,11 @@
 </script>
 
 <main
-    class="relative h-screen w-screen overflow-hidden bg-[#008080] p-5 font-['Source_Code_Pro','Noto_Sans_TC'] text-black"
+    class="relative h-dvh w-dvw overflow-hidden bg-[#008080] p-5 font-['Source_Code_Pro','Noto_Sans_TC'] text-black"
 >
-    <div class="grid h-fit w-fit grid-flow-row *:select-none">
+    <div
+        class="grid h-fit w-full grid-flow-col justify-items-center *:select-none xl:w-fit xl:grid-flow-row"
+    >
         <Icon
             src="/icon/chat.png"
             iconName="Chat"
