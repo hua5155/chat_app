@@ -5,7 +5,7 @@
     import { dev } from '$app/environment';
     import { scrollToBottom } from '$lib/util/ui';
     import { taskbar } from './store';
-    import { user, chatWindow, windowStack, chatSetting } from './store.svelte';
+    import { user, chatWindow, windowStack } from './store.svelte';
     import { getSupabaseClient } from '$lib/client/supabase';
 
     function onSend() {
@@ -61,21 +61,21 @@
         })
         .subscribe();
 
-    let zHeight = $derived(windowStack.value.findIndex((name) => name === chatSetting.name));
+    let zHeight = $derived(windowStack.value.findIndex((name) => name === chatWindow.name));
 </script>
 
 <Window
-    windowName={chatSetting.name}
-    id={chatSetting.id}
+    windowName={chatWindow.name}
+    id={chatWindow.id}
     widthWithUnit="80ch"
     positonX={200}
     positonY={100}
     {zHeight}
     bind:minimized={chatWindow.minimized}
     onfocusin={() => {
-        $taskbar.focus = chatSetting.name;
-        const rest = windowStack.value.filter((name) => name !== chatSetting.name);
-        windowStack.value = [...rest, chatSetting.name];
+        $taskbar.focus = chatWindow.name;
+        const rest = windowStack.value.filter((name) => name !== chatWindow.name);
+        windowStack.value = [...rest, chatWindow.name];
     }}
     onfocusout={() => {
         $taskbar.focus = '';

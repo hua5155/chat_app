@@ -4,7 +4,7 @@
     import Taskbar from './Taskbar.svelte';
     import Icon from './Icon.svelte';
     import { dev } from '$app/environment';
-    import { user, chatWindow, cliWindow, chatSetting, cliSetting } from './store.svelte';
+    import { user, chatWindow, cliWindow } from './store.svelte';
     import { setFocus } from '$lib/util/ui';
 
     let { data = $bindable() } = $props();
@@ -25,7 +25,7 @@
             ondblclick={() => {
                 chatWindow.minimized = false;
                 setTimeout(() => {
-                    setFocus(chatSetting.id);
+                    setFocus(chatWindow.id);
                 }, 0);
             }}
         ></Icon>
@@ -35,7 +35,7 @@
             ondblclick={() => {
                 cliWindow.minimized = false;
                 setTimeout(() => {
-                    setFocus(cliSetting.id);
+                    setFocus(cliWindow.id);
                 }, 0);
             }}
         ></Icon>

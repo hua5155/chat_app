@@ -14,4 +14,3 @@ export const taskbar = writable({
     windows: [chatSetting, cliSetting],
     focus: ''
 });
-export const zStack = writable([chatSetting.name, cliSetting.name]);

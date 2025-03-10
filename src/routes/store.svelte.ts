@@ -1,4 +1,4 @@
-const createUser = (initialValue: string) => {
+function createUser(initialValue: string) {
     let username = $state(initialValue);
 
     return {
@@ -9,9 +9,9 @@ const createUser = (initialValue: string) => {
             username = value;
         }
     };
-};
+}
 
-const createWindow = () => {
+function createWindow(name: string, id: string) {
     let minimized = $state(true);
     let maximized = $state(false);
 
@@ -27,11 +27,17 @@ const createWindow = () => {
         },
         set maximized(value) {
             maximized = value;
+        },
+        get name() {
+            return name;
+        },
+        get id() {
+            return id;
         }
     };
-};
+}
 
-const createZStack = () => {
+function createZStack() {
     let stack: string[] = $state([]);
 
     return {
@@ -42,21 +48,13 @@ const createZStack = () => {
             stack = value;
         }
     };
-};
+}
 
 function getRandomNumber(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 export const user = createUser(`User${getRandomNumber(0, 9999)}`);
-export const chatWindow = createWindow();
-export const cliWindow = createWindow();
+export const chatWindow = createWindow('Chat', 'chat-window');
+export const cliWindow = createWindow('Command Line', 'cli-window');
 export const windowStack = createZStack();
-export const chatSetting = {
-    name: 'Chat',
-    id: 'chat-window'
-};
-export const cliSetting = {
-    name: 'Command Line',
-    id: 'cli-window'
-};
