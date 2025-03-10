@@ -1,6 +1,13 @@
 <script lang="ts">
-    export let src: string;
-    export let iconName: string;
+    let {
+        src,
+        iconName,
+        ondblclick
+    }: {
+        src: string;
+        iconName: string;
+        ondblclick: () => void;
+    } = $props();
 </script>
 
 <div class="relative">
@@ -8,8 +15,10 @@
         class="w-[100px]"
         {src}
         alt=""
-        on:dragstart|preventDefault
-        on:dblclick
+        ondragstart={(event) => {
+            event.preventDefault();
+        }}
+        {ondblclick}
     />
     <p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-white">{iconName}</p>
 </div>
