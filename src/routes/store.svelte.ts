@@ -50,6 +50,29 @@ function createZStack() {
     };
 }
 
+function createTaskbar() {
+    let windows: {
+        name: string;
+        id: string;
+    }[] = $state([]);
+    let focus = $state('');
+
+    return {
+        get windows() {
+            return windows;
+        },
+        set windows(value) {
+            windows = value;
+        },
+        get focus() {
+            return focus;
+        },
+        set focus(value) {
+            focus = value;
+        }
+    };
+}
+
 function getRandomNumber(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -58,3 +81,4 @@ export const user = createUser(`User${getRandomNumber(0, 9999)}`);
 export const chatWindow = createWindow('Chat', 'chat-window');
 export const cliWindow = createWindow('Command Line', 'cli-window');
 export const windowStack = createZStack();
+export const taskbar = createTaskbar();

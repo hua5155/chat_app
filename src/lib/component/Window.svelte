@@ -11,7 +11,8 @@
         minimized = $bindable(true),
         children,
         onfocusin,
-        onfocusout
+        onfocusout,
+        onclose
     }: {
         windowName: string;
         id: string;
@@ -23,6 +24,7 @@
         children?: import('svelte').Snippet;
         onfocusin?: () => void;
         onfocusout?: () => void;
+        onclose?: () => void;
     } = $props();
 
     let dragFlag = $state(false);
@@ -71,7 +73,15 @@
             -
         </Button>
         <Button class="h-7 w-7 text-center align-middle">+</Button>
-        <Button class="h-7 w-7 text-center align-middle">x</Button>
+        <Button
+            class="h-7 w-7 text-center align-middle"
+            onclick={() => {
+                minimized = true;
+                if (onclose) onclose();
+            }}
+        >
+            x
+        </Button>
     </div>
     <div class="w-full py-1">
         <div class="w-full border-2 border-b-white border-t-[#837c83]"></div>

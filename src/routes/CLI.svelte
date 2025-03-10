@@ -1,8 +1,7 @@
 <script lang="ts">
     import Window from '$lib/component/Window.svelte';
     import { dev } from '$app/environment';
-    import { taskbar } from './store';
-    import { user, cliWindow, windowStack } from './store.svelte';
+    import { user, cliWindow, windowStack, taskbar } from './store.svelte';
     import { scrollToBottom } from '$lib/util/ui';
 
     function writeGrayLine(text: string) {
@@ -97,13 +96,16 @@
     {zHeight}
     bind:minimized={cliWindow.minimized}
     onfocusin={() => {
-        $taskbar.focus = cliWindow.name;
+        taskbar.focus = cliWindow.name;
 
         const rest = windowStack.value.filter((name) => name !== cliWindow.name);
         windowStack.value = [...rest, cliWindow.name];
     }}
     onfocusout={() => {
-        $taskbar.focus = '';
+        taskbar.focus = '';
+    }}
+    onclose={() => {
+        taskbar.windows = [...taskbar.windows].filter(({ name }) => name !== cliWindow.name);
     }}
 >
     <div

@@ -4,8 +4,7 @@
     import type { ChatServerLoad, ChatWebSocket } from '$drizzle/schema';
     import { dev } from '$app/environment';
     import { scrollToBottom } from '$lib/util/ui';
-    import { taskbar } from './store';
-    import { user, chatWindow, windowStack } from './store.svelte';
+    import { user, chatWindow, windowStack, taskbar } from './store.svelte';
     import { getSupabaseClient } from '$lib/client/supabase';
 
     function onSend() {
@@ -73,12 +72,15 @@
     {zHeight}
     bind:minimized={chatWindow.minimized}
     onfocusin={() => {
-        $taskbar.focus = chatWindow.name;
+        taskbar.focus = chatWindow.name;
         const rest = windowStack.value.filter((name) => name !== chatWindow.name);
         windowStack.value = [...rest, chatWindow.name];
     }}
     onfocusout={() => {
-        $taskbar.focus = '';
+        taskbar.focus = '';
+    }}
+    onclose={() => {
+        taskbar.windows = [...taskbar.windows].filter(({ name }) => name !== chatWindow.name);
     }}
 >
     <div
