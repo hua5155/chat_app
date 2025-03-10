@@ -1,3 +1,5 @@
+import { SvelteSet } from 'svelte/reactivity';
+
 function createUser(initialValue: string) {
     let username = $state(initialValue);
 
@@ -51,10 +53,12 @@ function createZStack() {
 }
 
 function createTaskbar() {
-    let windows: {
-        name: string;
-        id: string;
-    }[] = $state([]);
+    let windows = $state(
+        new SvelteSet<{
+            name: string;
+            id: string;
+        }>()
+    );
     let focus = $state('');
 
     return {

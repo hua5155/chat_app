@@ -80,7 +80,7 @@
         taskbar.focus = '';
     }}
     onclose={() => {
-        taskbar.windows = [...taskbar.windows].filter(({ name }) => name !== chatWindow.name);
+        taskbar.windows.delete(chatWindow);
     }}
 >
     <div

@@ -23,10 +23,7 @@
             src="/icon/chat.png"
             iconName="Chat"
             ondblclick={() => {
-                taskbar.windows = [
-                    ...taskbar.windows,
-                    { name: chatWindow.name, id: chatWindow.id }
-                ];
+                taskbar.windows.add(chatWindow);
                 chatWindow.minimized = false;
                 setTimeout(() => {
                     setFocus(chatWindow.id);
@@ -37,7 +34,7 @@
             src="/icon/cli.png"
             iconName="CLI"
             ondblclick={() => {
-                taskbar.windows = [...taskbar.windows, { name: cliWindow.name, id: cliWindow.id }];
+                taskbar.windows.add(cliWindow);
                 cliWindow.minimized = false;
                 setTimeout(() => {
                     setFocus(cliWindow.id);

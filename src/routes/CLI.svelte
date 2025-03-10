@@ -105,7 +105,7 @@
         taskbar.focus = '';
     }}
     onclose={() => {
-        taskbar.windows = [...taskbar.windows].filter(({ name }) => name !== cliWindow.name);
+        taskbar.windows.delete(cliWindow);
     }}
 >
     <div
