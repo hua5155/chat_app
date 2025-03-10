@@ -1,8 +1,15 @@
 <script lang="ts">
-    let className = '';
-    export { className as class };
-
-    export let pressed = false;
+    let {
+        class: className = '',
+        pressed = $bindable(false),
+        children,
+        onclick
+    }: {
+        class?: string;
+        pressed?: boolean;
+        children: any;
+        onclick?: () => void;
+    } = $props();
 </script>
 
 <button
@@ -12,15 +19,17 @@
     class:border-r-white={pressed}
     class:border-t-black={pressed}
     class:bg-[#b3aab3]={pressed}
-    on:mousedown={() => {
+    onmousedown={() => {
         pressed = true;
     }}
-    on:mouseup={() => {
+    onmouseup={() => {
         pressed = false;
     }}
-    on:click
+    onclick={() => {
+        if (onclick) onclick();
+    }}
 >
-    <slot></slot>
+    {@render children?.()}
 </button>
 
 <!-- <svelte:window /> -->

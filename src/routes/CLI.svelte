@@ -1,7 +1,8 @@
 <script lang="ts">
     import Window from '$lib/component/Window.svelte';
     import { dev } from '$app/environment';
-    import { cliSetting, taskbar, username, zStack } from './store';
+    import { taskbar } from './store';
+    import { user, cliWindow, windowStack, cliSetting } from './store.svelte';
     import { scrollToBottom } from '$lib/util/ui';
 
     function writeGrayLine(text: string) {
@@ -52,7 +53,7 @@
                 writeGrayLine('Invalid argument, expect "my name" but got none.');
                 return;
             }
-            $username = newName;
+            user.name = newName;
         } else {
             writeGrayLine(`Error parsing ${input}.`);
             writeGrayLine('Type /help to see list of avaliable command.');
@@ -80,11 +81,11 @@
         '/help to see list of avaliable command.'
     ] as const;
 
-    let userInput = '';
-    let history: string[] = [''];
-    let index = 0;
+    let userInput = $state('');
+    let history: string[] = $state(['']);
+    let index = $state(0);
 
-    $: zHeight = $zStack.findIndex((name) => name === cliSetting.name);
+    let zHeight = $derived(windowStack.value.findIndex((name) => name === cliSetting.name));
 </script>
 
 <Window
@@ -94,15 +95,14 @@
     positonX={290}
     positonY={210}
     {zHeight}
-    minimized={false}
-    on:focusin={() => {
+    bind:minimized={cliWindow.minimized}
+    onfocusin={() => {
         $taskbar.focus = cliSetting.name;
-        zStack.update((name) => {
-            const rest = name.filter((name) => name !== cliSetting.name);
-            return [...rest, cliSetting.name];
-        });
+
+        const rest = windowStack.value.filter((name) => name !== cliSetting.name);
+        windowStack.value = [...rest, cliSetting.name];
     }}
-    on:focusout={() => {
+    onfocusout={() => {
         $taskbar.focus = '';
     }}
 >
@@ -110,7 +110,7 @@
         class="prose-xl h-[400px] w-full overflow-x-hidden overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-black pl-2 text-[#7f787f] *:whitespace-pre *:text-wrap *:[overflow-anchor:none]"
         id="command-line"
         role="none"
-        on:click={() => {
+        onclick={() => {
             // document.getElementById('user-input')?.focus();
         }}
     >
@@ -126,13 +126,14 @@
             class="inline-flex w-full text-white"
             id="current-line"
         >
-            <span class="flex-none pr-[1ch]">{`${PATH}${$username}>`}</span>
+            <span class="flex-none pr-[1ch]">{`${PATH}${user.name}>`}</span>
             <input
                 class="h-fit flex-auto bg-black focus:outline-none"
                 type="text"
+                autocomplete="off"
                 id="user-input"
                 bind:value={userInput}
-                on:keydown={({ key }) => {
+                onkeydown={({ key }) => {
                     // if (dev) console.log(key);
 
                     if (key === 'ArrowUp') {
@@ -155,7 +156,7 @@
                     }
                     if (key === 'Enter') {
                         userInput = userInput.trimEnd();
-                        writeWhiteLine(`${PATH}${$username}> ${userInput}`);
+                        writeWhiteLine(`${PATH}${user.name}> ${userInput}`);
                         history = history.toSpliced(1, 0, userInput);
                         index = 0;
                         parseCommand(userInput);

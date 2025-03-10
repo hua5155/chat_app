@@ -13,7 +13,7 @@
         <Button
             class="prose-xl select-none px-2"
             pressed={isFocused}
-            on:click={() => {
+            onclick={() => {
                 $taskbar.focus = window.name;
                 setFocus(window.id);
             }}

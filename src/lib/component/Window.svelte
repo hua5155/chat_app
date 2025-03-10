@@ -1,22 +1,35 @@
 <script lang="ts">
     import Button from '$lib/component/Button.svelte';
-    import { createEventDispatcher } from 'svelte';
 
-    const dispatch = createEventDispatcher();
+    let {
+        windowName,
+        id,
+        widthWithUnit,
+        positonX = $bindable(),
+        positonY = $bindable(),
+        zHeight = 0,
+        minimized = $bindable(true),
+        children,
+        onfocusin,
+        onfocusout
+    }: {
+        windowName: string;
+        id: string;
+        widthWithUnit: string;
+        positonX: number;
+        positonY: number;
+        zHeight?: number;
+        minimized?: boolean;
+        children?: import('svelte').Snippet;
+        onfocusin?: () => void;
+        onfocusout?: () => void;
+    } = $props();
 
-    export let windowName: string;
-    export let id: string;
-    export let widthWithUnit: string;
-    export let positonX: number;
-    export let positonY: number;
-    export let zHeight = 0;
-    export let minimized = true;
+    let dragFlag = $state(false);
+    let referenceX = $state(0);
+    let referenceY = $state(0);
 
-    let dragFlag = false;
-    let referenceX = 0;
-    let referenceY = 0;
-
-    let focused = false;
+    let focused = $state(false);
 </script>
 
 <section
@@ -28,13 +41,13 @@
     style:--width={widthWithUnit}
     {id}
     tabindex="-1"
-    on:focusin={() => {
+    onfocusin={() => {
         focused = true;
-        dispatch('focusin');
+        if (onfocusin) onfocusin();
     }}
-    on:focusout={() => {
+    onfocusout={() => {
         focused = false;
-        dispatch('focusout');
+        if (onfocusout) onfocusout();
     }}
 >
     <div
@@ -42,7 +55,7 @@
         style:--from={focused ? '#00007f' : '#6b656b'}
         style:--to={focused ? '#0000a6' : '#7f787f'}
         role="none"
-        on:mousedown={({ screenX, screenY }) => {
+        onmousedown={({ screenX, screenY }) => {
             dragFlag = true;
             referenceX = screenX;
             referenceY = screenY;
@@ -51,7 +64,7 @@
         <p class="prose max-w-none grow text-white">{windowName}</p>
         <Button
             class="h-7 w-7 text-center align-middle"
-            on:click={() => {
+            onclick={() => {
                 minimized = true;
             }}
         >
@@ -63,11 +76,11 @@
     <div class="w-full py-1">
         <div class="w-full border-2 border-b-white border-t-[#837c83]"></div>
     </div>
-    <slot></slot>
+    {@render children?.()}
 </section>
 
 <svelte:window
-    on:mousemove={({ screenX, screenY }) => {
+    onmousemove={({ screenX, screenY }) => {
         if (dragFlag === false) return;
 
         positonX += screenX - referenceX;
@@ -76,7 +89,7 @@
         referenceX = screenX;
         referenceY = screenY;
     }}
-    on:mouseup={({}) => {
+    onmouseup={({}) => {
         dragFlag = false;
     }}
 />

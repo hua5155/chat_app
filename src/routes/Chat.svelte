@@ -4,11 +4,12 @@
     import type { ChatServerLoad, ChatWebSocket } from '$drizzle/schema';
     import { dev } from '$app/environment';
     import { scrollToBottom } from '$lib/util/ui';
-    import { username, chatSetting, taskbar, zStack } from './store';
+    import { taskbar } from './store';
+    import { user, chatWindow, windowStack, chatSetting } from './store.svelte';
     import { getSupabaseClient } from '$lib/client/supabase';
 
     function onSend() {
-        if ($username === '') {
+        if (user.name === '') {
             if (dev) console.log('Empty username');
             return;
         }
@@ -18,7 +19,7 @@
         }
 
         if (dev) console.log(`send message: ${message}`);
-        const newMessage = { username: $username, message: message };
+        const newMessage = { username: user.name, message: message };
         fetch('/api/chat', {
             method: 'post',
             body: JSON.stringify(newMessage)
@@ -42,11 +43,15 @@
     const supabase = getSupabaseClient();
     const chatChannel = supabase.channel('chat');
 
-    export let chat: ChatServerLoad[];
+    let {
+        chat = $bindable()
+    }: {
+        chat: ChatServerLoad[];
+    } = $props();
 
-    let message = '';
+    let message = $state('');
     let history: string[] = [''];
-    let index = 0;
+    let index = $state(0);
 
     chatChannel
         .on('broadcast', { event: 'newMessage' }, ({ payload }) => {
@@ -56,7 +61,7 @@
         })
         .subscribe();
 
-    $: zHeight = $zStack.findIndex((name) => name === chatSetting.name);
+    let zHeight = $derived(windowStack.value.findIndex((name) => name === chatSetting.name));
 </script>
 
 <Window
@@ -66,15 +71,13 @@
     positonX={200}
     positonY={100}
     {zHeight}
-    minimized={false}
-    on:focusin={() => {
+    bind:minimized={chatWindow.minimized}
+    onfocusin={() => {
         $taskbar.focus = chatSetting.name;
-        zStack.update((name) => {
-            const rest = name.filter((name) => name !== chatSetting.name);
-            return [...rest, chatSetting.name];
-        });
+        const rest = windowStack.value.filter((name) => name !== chatSetting.name);
+        windowStack.value = [...rest, chatSetting.name];
     }}
-    on:focusout={() => {
+    onfocusout={() => {
         $taskbar.focus = '';
     }}
 >
@@ -104,7 +107,7 @@
             name="message"
             autocomplete="off"
             bind:value={message}
-            on:keydown={({ key }) => {
+            onkeydown={({ key }) => {
                 // if (dev) console.log(key);
 
                 if (key === 'ArrowUp') {
@@ -131,7 +134,7 @@
         />
         <Button
             class="prose-xl select-none px-2"
-            on:click={() => {
+            onclick={() => {
                 onSend();
             }}
         >

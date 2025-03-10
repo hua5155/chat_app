@@ -1,16 +1,14 @@
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 export const username = writable('');
 
 export const chatSetting = {
     name: 'Chat',
-    id: 'chat-window',
-    visible: true
+    id: 'chat-window'
 };
 export const cliSetting = {
     name: 'Command Line',
-    id: 'cli-window',
-    visible: true
+    id: 'cli-window'
 };
 export const taskbar = writable({
     windows: [chatSetting, cliSetting],

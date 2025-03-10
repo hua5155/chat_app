@@ -3,24 +3,14 @@
     import CLI from './CLI.svelte';
     import Taskbar from './Taskbar.svelte';
     import Icon from './Icon.svelte';
-    import type { PageData } from './$types';
     import { dev } from '$app/environment';
-    import { onDestroy, onMount } from 'svelte';
-    import { username, cliSetting, chatSetting } from './store';
+    import { user, chatWindow, cliWindow, chatSetting, cliSetting } from './store.svelte';
     import { setFocus } from '$lib/util/ui';
 
-    function getRandomNumber(min: number, max: number) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    export let data: PageData;
+    let { data = $bindable() } = $props();
     // if (dev) console.log(data.messages);
 
-    onMount(() => {
-        $username = `User${getRandomNumber(0, 9999)}`;
-    });
-
-    // onDestroy(() => {});
+    if (dev) console.log(`Username: ${user.name}`);
 </script>
 
 <main
@@ -32,15 +22,21 @@
         <Icon
             src="/icon/chat.png"
             iconName="Chat"
-            on:dblclick={() => {
-                setFocus(chatSetting.id);
+            ondblclick={() => {
+                chatWindow.minimized = false;
+                setTimeout(() => {
+                    setFocus(chatSetting.id);
+                }, 0);
             }}
         ></Icon>
         <Icon
             src="/icon/cli.png"
             iconName="CLI"
-            on:dblclick={() => {
-                setFocus(cliSetting.id);
+            ondblclick={() => {
+                cliWindow.minimized = false;
+                setTimeout(() => {
+                    setFocus(cliSetting.id);
+                }, 0);
             }}
         ></Icon>
         <div class="relative">
@@ -53,7 +49,9 @@
                     class="w-[100px]"
                     src="/icon/github.png"
                     alt=""
-                    on:dragstart|preventDefault
+                    ondragstart={(event) => {
+                        event.preventDefault();
+                    }}
                 />
             </a>
             <p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-white">GitHub</p>
