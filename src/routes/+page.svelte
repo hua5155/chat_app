@@ -22,6 +22,15 @@
         <Icon
             src="/icon/chat.png"
             iconName="Chat"
+            onclick={() => {
+                const isMobile = window.matchMedia('(max-width: 1280px)');
+                if (!isMobile.matches) return;
+                taskbar.windows.add(chatWindow);
+                chatWindow.minimized = false;
+                setTimeout(() => {
+                    setFocus(chatWindow.id);
+                }, 0);
+            }}
             ondblclick={() => {
                 taskbar.windows.add(chatWindow);
                 chatWindow.minimized = false;
@@ -33,6 +42,15 @@
         <Icon
             src="/icon/cli.png"
             iconName="CLI"
+            onclick={() => {
+                const isMobile = window.matchMedia('(max-width: 1280px)');
+                if (!isMobile.matches) return;
+                taskbar.windows.add(cliWindow);
+                cliWindow.minimized = false;
+                setTimeout(() => {
+                    setFocus(cliWindow.id);
+                }, 0);
+            }}
             ondblclick={() => {
                 taskbar.windows.add(cliWindow);
                 cliWindow.minimized = false;
@@ -59,7 +77,7 @@
             <p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-white">GitHub</p>
         </div>
     </div>
-    <Chat bind:chat={data.messages}></Chat>
+    <Chat chat={data.messages}></Chat>
     <CLI></CLI>
     <Taskbar></Taskbar>
 </main>

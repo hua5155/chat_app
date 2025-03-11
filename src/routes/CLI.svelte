@@ -109,7 +109,7 @@
     }}
 >
     <div
-        class="prose-xl h-[400px] w-full overflow-x-hidden overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-black pl-2 text-[#7f787f] *:whitespace-pre *:text-wrap *:[overflow-anchor:none]"
+        class="prose-lg w-full flex-grow overflow-x-clip overflow-y-scroll border-2 border-b-white border-l-black border-r-white border-t-black bg-black pl-2 text-[#7f787f] xl:prose-xl *:whitespace-pre *:text-wrap *:[overflow-anchor:none] xl:h-[11lh]"
         id="command-line"
         role="none"
         onclick={() => {
@@ -117,7 +117,7 @@
         }}
     >
         {#each LOGO as line}
-            <div class="text-base leading-snug">{line}</div>
+            <div class="text-xs leading-snug xl:text-base">{line}</div>
         {/each}
 
         {#each COMMANDS as command}
@@ -125,48 +125,52 @@
         {/each}
 
         <div
-            class="inline-flex w-full text-white"
+            class="flex w-full flex-col text-white xl:flex-row"
             id="current-line"
         >
-            <span class="flex-none pr-[1ch]">{`${PATH}${user.name}>`}</span>
-            <input
-                class="h-fit flex-auto bg-black focus:outline-none"
-                type="text"
-                autocomplete="off"
-                id="user-input"
-                bind:value={userInput}
-                onkeydown={({ key }) => {
-                    // if (dev) console.log(key);
+            <span>{`${PATH}${user.name}`}</span>
+            <span class="hidden xl:inline">{'> '}</span>
+            <div class="flex flex-grow flex-row">
+                <span class="xl:hidden">{'> '}</span>
+                <input
+                    class="h-fit flex-grow bg-black focus:outline-none"
+                    type="text"
+                    autocomplete="off"
+                    id="user-input"
+                    bind:value={userInput}
+                    onkeydown={({ key }) => {
+                        // if (dev) console.log(key);
 
-                    if (key === 'ArrowUp') {
-                        index += 1;
-                        if (index > history.length - 1) {
-                            index = history.length - 1;
+                        if (key === 'ArrowUp') {
+                            index += 1;
+                            if (index > history.length - 1) {
+                                index = history.length - 1;
+                            }
+                            userInput = history[index];
                         }
-                        userInput = history[index];
-                    }
-                    if (key === 'ArrowDown') {
-                        index -= 1;
-                        if (index < 0) {
+                        if (key === 'ArrowDown') {
+                            index -= 1;
+                            if (index < 0) {
+                                index = 0;
+                            }
+                            userInput = history[index];
+                        }
+                        if (key === 'Escape') {
+                            userInput = '';
                             index = 0;
                         }
-                        userInput = history[index];
-                    }
-                    if (key === 'Escape') {
-                        userInput = '';
-                        index = 0;
-                    }
-                    if (key === 'Enter') {
-                        userInput = userInput.trimEnd();
-                        writeWhiteLine(`${PATH}${user.name}> ${userInput}`);
-                        history = history.toSpliced(1, 0, userInput);
-                        index = 0;
-                        parseCommand(userInput);
-                        userInput = '';
-                    }
-                    scrollToBottom(document.getElementById('command-line'));
-                }}
-            />
+                        if (key === 'Enter') {
+                            userInput = userInput.trimEnd();
+                            writeWhiteLine(`${PATH}${user.name}> ${userInput}`);
+                            history = history.toSpliced(1, 0, userInput);
+                            index = 0;
+                            parseCommand(userInput);
+                            userInput = '';
+                        }
+                        scrollToBottom(document.getElementById('command-line'));
+                    }}
+                />
+            </div>
         </div>
         <div class="h-[1px] ![overflow-anchor:auto]"></div>
     </div>

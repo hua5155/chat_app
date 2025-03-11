@@ -2,11 +2,13 @@
     let {
         src,
         iconName,
-        ondblclick
+        ondblclick,
+        onclick
     }: {
         src: string;
         iconName: string;
-        ondblclick: () => void;
+        ondblclick?: () => void;
+        onclick?: () => void;
     } = $props();
 </script>
 
@@ -18,6 +20,7 @@
         ondragstart={(event) => {
             event.preventDefault();
         }}
+        {onclick}
         {ondblclick}
     />
     <p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-white">{iconName}</p>

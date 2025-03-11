@@ -35,7 +35,7 @@
 </script>
 
 <section
-    class="absolute left-[--x-position] top-[--y-position] z-[--height] h-fit w-[--width] border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1"
+    class="absolute left-0 top-0 z-[--height] flex h-dvh w-lvw flex-col border-2 border-b-black border-l-white border-r-black border-t-white bg-[#c0c0c0] p-1 xl:left-[--x-position] xl:top-[--y-position] xl:h-fit xl:w-[--width]"
     class:hidden={minimized}
     style:--x-position="{positonX}px"
     style:--y-position="{positonY}px"
