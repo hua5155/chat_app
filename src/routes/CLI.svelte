@@ -117,7 +117,7 @@
         }}
     >
         {#each LOGO as line}
-            <div class="text-xs leading-snug xl:text-base">{line}</div>
+            <div class="text-xs leading-snug xl:text-sm">{line}</div>
         {/each}
 
         {#each COMMANDS as command}

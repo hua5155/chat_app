@@ -12,7 +12,11 @@
     } = $props();
 </script>
 
-<div class="relative">
+<button
+    class="relative"
+    {onclick}
+    {ondblclick}
+>
     <img
         class="w-[100px]"
         {src}
@@ -20,8 +24,6 @@
         ondragstart={(event) => {
             event.preventDefault();
         }}
-        {onclick}
-        {ondblclick}
     />
     <p class="absolute bottom-0 left-1/2 -translate-x-1/2 text-white">{iconName}</p>
-</div>
+</button>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import Window from '$lib/component/Window.svelte';
-    import Button from '$lib/component/Button.svelte';
+    import Button from '$lib/component/Taskbar/Button.svelte';
     import type { ChatServerLoad, ChatWebSocket } from '$drizzle/schema';
     import { dev } from '$app/environment';
     import { scrollToBottom } from '$lib/util/ui';
@@ -138,7 +138,6 @@
             }}
         />
         <Button
-            class="prose-xl select-none px-2"
             onclick={async () => {
                 await onSend();
             }}

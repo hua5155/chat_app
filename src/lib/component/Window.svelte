@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Button from '$lib/component/Button.svelte';
+    import Button from '$lib/component/Window/Button.svelte';
 
     let {
         windowName,
@@ -65,16 +65,14 @@
     >
         <p class="prose max-w-none grow text-white">{windowName}</p>
         <Button
-            class="h-7 w-7 text-center align-middle"
             onclick={() => {
                 minimized = true;
             }}
         >
             -
         </Button>
-        <Button class="h-7 w-7 text-center align-middle">+</Button>
+        <Button>+</Button>
         <Button
-            class="h-7 w-7 text-center align-middle"
             onclick={() => {
                 minimized = true;
                 if (onclose) onclose();

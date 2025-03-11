@@ -13,23 +13,19 @@
 </script>
 
 <button
-    class={className}
-    class:border-b-white={pressed}
-    class:border-l-black={pressed}
-    class:border-r-white={pressed}
-    class:border-t-black={pressed}
-    class:bg-[#b3aab3]={pressed}
+    class="h-7 w-7 border-2 border-b-black border-l-white border-r-black border-t-white bg-[#bfb8bf] text-center align-middle"
+    class:!border-b-white={pressed}
+    class:!border-l-black={pressed}
+    class:!border-r-white={pressed}
+    class:!border-t-black={pressed}
+    class:!bg-[#b3aab3]={pressed}
     onmousedown={() => {
         pressed = true;
     }}
     onmouseup={() => {
         pressed = false;
     }}
-    onclick={() => {
-        if (onclick) onclick();
-    }}
+    {onclick}
 >
     {@render children?.()}
 </button>
-
-<!-- <svelte:window /> -->
